@@ -1,0 +1,7 @@
+{
+  "name": "jurgenromeijn/wordpress-plugin-projects-rest",
+  "type": "wordpress-plugin",
+  "require": {
+    "composer/installers": "~1.0"
+  }
+}
