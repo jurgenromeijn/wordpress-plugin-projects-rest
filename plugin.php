@@ -11,7 +11,10 @@
  * @author Jurgen Romeijn <jurgen.romeijn@gmail.com>
  */
 
-require 'autoload.php';
+/**
+ * Autoload all classes by using the composer auto loader.
+ */
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 /**
  * Set up the plugin.
