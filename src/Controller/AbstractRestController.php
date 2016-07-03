@@ -10,6 +10,10 @@ use JurgenRomeijn\ProjectsRest\ProjectRestPlugin;
 use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
 use WP_REST_Controller;
 
+/**
+ * This class contains all generic functionality shared by all controllers in the plugin.
+ * @package JurgenRomeijn\ProjectsRest\Controller
+ */
 abstract class AbstractRestController extends WP_REST_Controller
 {
     use SingletonTrait;
@@ -19,11 +23,17 @@ abstract class AbstractRestController extends WP_REST_Controller
 
     public $routes = [];
 
+    /**
+     * Initialize the controller by registering it's routes.
+     */
     public function init()
     {
         add_action('rest_api_init', array($this, 'registerRoutes'));
     }
 
+    /**
+     * Register all routes of this controller to the WordPress rest API.
+     */
     public function registerRoutes()
     {
         $apiBasePath = ProjectRestPlugin::getApiBasePath();
@@ -35,6 +45,12 @@ abstract class AbstractRestController extends WP_REST_Controller
         }
     }
 
+    /**
+     * Add a new route to this controller.
+     * @param $route
+     * @param $httpMethod
+     * @param $callback
+     */
     protected function addRoute($route, $httpMethod, $callback)
     {
         $this->routes[] = new Route($route, $httpMethod, $callback);
