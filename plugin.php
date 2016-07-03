@@ -19,4 +19,5 @@ require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 /**
  * Set up the plugin.
  */
-// TODO: Set up plugin
+$projectRestPlugin = \JurgenRomeijn\ProjectsRest\ProjectRestPlugin::getInstance();
+$projectRestPlugin->init();
