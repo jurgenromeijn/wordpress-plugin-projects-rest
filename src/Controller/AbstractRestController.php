@@ -28,7 +28,7 @@ abstract class AbstractRestController extends WP_REST_Controller
      */
     public function init()
     {
-        add_action('rest_api_init', array($this, 'registerRoutes'));
+        add_action('rest_api_init', [$this, 'registerRoutes']);
     }
 
     /**

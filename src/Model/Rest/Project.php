@@ -33,7 +33,7 @@ class Project
         $content = null,
         $excerpt = null,
         Image $featuredImage = null,
-        array $images = array()
+        array $images = []
     ) {
         $this->slug = $slug;
         $this->title = $title;

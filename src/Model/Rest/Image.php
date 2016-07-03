@@ -30,7 +30,7 @@ class Image extends ImageSizeVariant
         $width = 0,
         $altText = null,
         $caption = null,
-        array $sizeVariants = array()
+        array $sizeVariants = []
     ) {
         $this->setUrl($url);
         $this->setHeight($height);
