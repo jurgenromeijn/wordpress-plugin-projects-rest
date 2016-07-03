@@ -19,7 +19,8 @@ class ProjectController extends AbstractRestController
 
     public function init()
     {
-        $this->registerRoute('/project', HttpMethods::GET, 'index');
+        $this->addRoute('/project', HttpMethods::GET, 'index');
+        parent::init();
     }
 
     public function index()
