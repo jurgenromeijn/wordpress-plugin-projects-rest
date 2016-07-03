@@ -5,7 +5,9 @@
 
 namespace JurgenRomeijn\ProjectsRest\Controller;
 
+use JurgenRomeijn\ProjectsRest\Repository\ProjectRepository;
 use JurgenRomeijn\ProjectsRest\Util\HttpMethods;
+use WP_REST_Response;
 
 /**
  * The main controller which manages the Project entity.
@@ -13,11 +15,14 @@ use JurgenRomeijn\ProjectsRest\Util\HttpMethods;
  */
 class ProjectController extends AbstractRestController
 {
+    private $projectRepository;
+
     /**
      * ProjectController constructor.
      */
     protected function __construct()
     {
+        $this->projectRepository = ProjectRepository::getInstance();
     }
 
     /**
@@ -31,11 +36,11 @@ class ProjectController extends AbstractRestController
 
     /**
      * Give an overview of all projects.
-     * @return \WP_REST_Response
+     * @return WP_REST_Response
      */
     public function index()
     {
-        // Todo: implement
-        return new \WP_REST_Response('test');
+        $projects = $this->projectRepository->findAll();
+        return new WP_REST_Response($projects);
     }
 }
