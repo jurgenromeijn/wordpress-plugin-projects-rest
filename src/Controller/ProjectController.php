@@ -13,7 +13,7 @@ use JurgenRomeijn\ProjectsRest\Util\HttpMethods;
  */
 class ProjectController extends AbstractRestController
 {
-    private function __construct()
+    protected function __construct()
     {
     }
 

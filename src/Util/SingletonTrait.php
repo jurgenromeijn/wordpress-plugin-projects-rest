@@ -11,7 +11,7 @@ namespace JurgenRomeijn\ProjectsRest\Util;
  */
 trait SingletonTrait
 {
-    private static $instance;
+    protected static $instance;
 
     /**
      * return an instance of this singleton.
@@ -19,9 +19,9 @@ trait SingletonTrait
      */
     public static function getInstance()
     {
-        if (self::$instance === null) {
-            self::$instance = new self();
+        if (static::$instance === null) {
+            static::$instance = new static();
         }
-        return self::$instance;
+        return static::$instance;
     }
 }
