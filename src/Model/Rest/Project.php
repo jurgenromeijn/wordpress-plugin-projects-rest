@@ -11,15 +11,17 @@ namespace JurgenRomeijn\ProjectsRest\Model\Rest;
  */
 class Project
 {
+    private $id;
     public $slug;
     public $title;
     public $content;
     public $excerpt;
-    private $featuredImage;
-    private $images;
+    public $featuredImage;
+    public $images;
 
     /**
      * Project constructor.
+     * @param int $id
      * @param string $slug
      * @param string $title
      * @param string $content
@@ -28,6 +30,7 @@ class Project
      * @param array $images
      */
     public function __construct(
+        $id = null,
         $slug = null,
         $title = null,
         $content = null,
@@ -35,12 +38,29 @@ class Project
         Image $featuredImage = null,
         array $images = []
     ) {
+        $this->id = $id;
         $this->slug = $slug;
         $this->title = $title;
         $this->content = $content;
         $this->excerpt = $excerpt;
         $this->featuredImage = $featuredImage;
         $this->images = $images;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
