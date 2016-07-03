@@ -34,7 +34,7 @@ class ProjectRestPlugin
      */
     public function init()
     {
-        // Todo: initialize components
+        $this->projectController->init();
     }
 
     /**
