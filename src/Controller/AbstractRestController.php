@@ -22,8 +22,8 @@ abstract class AbstractRestController extends WP_REST_Controller
     {
         $apiBasePath = ProjectRestPlugin::getApiBasePath();
         register_rest_route($apiBasePath, $route, [
-            REGISTER_REST_ROUTE_METHODS  => $httpMethod,
-            REGISTER_REST_ROUTE_CALLBACK => [$this, $callback]
+            self::REGISTER_REST_ROUTE_METHODS  => $httpMethod,
+            self::REGISTER_REST_ROUTE_CALLBACK => [$this, $callback]
         ]);
     }
 }
