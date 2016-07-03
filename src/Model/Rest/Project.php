@@ -11,10 +11,10 @@ namespace JurgenRomeijn\ProjectsRest\Model\Rest;
  */
 class Project
 {
-    private $slug;
-    private $title;
-    private $content;
-    private $excerpt;
+    public $slug;
+    public $title;
+    public $content;
+    public $excerpt;
     private $featuredImage;
     private $images;
 
