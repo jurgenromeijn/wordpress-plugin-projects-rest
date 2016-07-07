@@ -17,6 +17,9 @@ class ProjectRepository implements ProjectRepositoryInterface
 {
     use SingletonTrait;
 
+    const TYPE_PROJECT = 'project';
+    const UNLIMITED = -1;
+
     private $projectMapper;
 
     /**
@@ -34,8 +37,8 @@ class ProjectRepository implements ProjectRepositoryInterface
     public function findAll()
     {
         $projectPosts = get_posts([
-            'post_type' => 'project',
-            'posts_per_page' => -1
+            'post_type' => self::TYPE_PROJECT,
+            'posts_per_page' => self::UNLIMITED
         ]);
         return $this->projectMapper->mapProjects($projectPosts);
     }
