@@ -44,9 +44,11 @@ class ProjectRepository implements ProjectRepositoryInterface
             'posts_per_page' => self::UNLIMITED
         ]);
         $projects = $this->projectMapper->mapProjects($projectPosts);
+
         if ($addImages === true) {
             $this->addImagesToProjects($projects);
         }
+
         return $projects;
     }
 
@@ -57,8 +59,20 @@ class ProjectRepository implements ProjectRepositoryInterface
     private function addImagesToProjects(array $projects)
     {
         foreach ($projects as $project) {
-            $images = $this->imageRepository->findImages($project);
-            $project->setImages($images);
+            $this->addImagesToProject($project);
         }
+    }
+
+    /**
+     * Fetch the images for the specified project and add them to the entity.
+     * @param Project $project
+     */
+    private function addImagesToProject(Project $project)
+    {
+        $featuredImage = $this->imageRepository->findFeaturedImage($project);
+        $images = $this->imageRepository->findImages($project);
+
+        $project->setFeaturedImage($featuredImage);
+        $project->setImages($images);
     }
 }
