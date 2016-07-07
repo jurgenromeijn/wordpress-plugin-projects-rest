@@ -11,8 +11,8 @@ namespace JurgenRomeijn\ProjectsRest\Model\Rest;
  */
 class Image extends ImageSizeVariant
 {
-    private $altText;
-    private $caption;
+    public $altText;
+    public $caption;
     private $sizeVariants;
 
     /**

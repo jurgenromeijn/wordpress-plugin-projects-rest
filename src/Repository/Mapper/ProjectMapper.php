@@ -50,6 +50,7 @@ class ProjectMapper implements ProjectMapperInterface
     {
         $project = new Project();
 
+        $project->setId($post->ID);
         $project->setSlug($post->post_name);
         $project->setTitle($post->post_title);
         $project->setContent($post->post_content);

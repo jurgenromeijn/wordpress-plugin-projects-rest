@@ -11,9 +11,9 @@ namespace JurgenRomeijn\ProjectsRest\Model\Rest;
  */
 class ImageSizeVariant
 {
-    private $url;
-    private $height;
-    private $width;
+    public $url;
+    public $height;
+    public $width;
 
     /**
      * ImageSizeVariant constructor.

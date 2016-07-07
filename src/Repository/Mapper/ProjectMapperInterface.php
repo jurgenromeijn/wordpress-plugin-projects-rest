@@ -9,7 +9,7 @@ use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use WP_Post;
 
 /**
- * This
+ * All functionality to map a single or multiple WP_Post objects to Project objects.
  * @package JurgenRomeijn\ProjectsRest\Repository\Mapper
  */
 interface ProjectMapperInterface

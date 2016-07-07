@@ -8,14 +8,15 @@ namespace JurgenRomeijn\ProjectsRest\Repository;
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 
 /**
- * This interface describes all functionality the ProjectRepository should have.
+ * This interface describes all functionality the ImageRepository should have.
  * @package JurgenRomeijn\ProjectsRest\Repository
  */
-interface ProjectRepositoryInterface
+interface ImageRepositoryInterface
 {
     /**
-     * find all projects.
+     * Find images for a project.
+     * @param Project $project
      * @return array
      */
-    public function findAll();
+    public function findImages(Project $project);
 }

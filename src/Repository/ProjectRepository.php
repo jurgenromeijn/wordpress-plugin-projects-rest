@@ -17,6 +17,10 @@ class ProjectRepository implements ProjectRepositoryInterface
 {
     use SingletonTrait;
 
+    const TYPE_PROJECT = 'project';
+    const UNLIMITED = -1;
+
+    private $imageRepository;
     private $projectMapper;
 
     /**
@@ -24,19 +28,37 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     private function __construct()
     {
-        $this->projectMapper = ProjectMapper::getInstance();
+        $this->imageRepository = ImageRepository::getInstance();
+        $this->projectMapper   = ProjectMapper::getInstance();
     }
 
     /**
      * find all projects.
-     * @return Project
+     * @param bool $addImages
+     * @return array
      */
-    public function findAll()
+    public function findAll($addImages = true)
     {
         $projectPosts = get_posts([
-            'post_type' => 'project',
-            'posts_per_page' => -1
+            'post_type' => self::TYPE_PROJECT,
+            'posts_per_page' => self::UNLIMITED
         ]);
-        return $this->projectMapper->mapProjects($projectPosts);
+        $projects = $this->projectMapper->mapProjects($projectPosts);
+        if ($addImages === true) {
+            $this->addImagesToProjects($projects);
+        }
+        return $projects;
+    }
+
+    /**
+     * Fetch the images for the specified projects and add them to the entity.
+     * @param array $projects
+     */
+    private function addImagesToProjects(array $projects)
+    {
+        foreach ($projects as $project) {
+            $images = $this->imageRepository->findImages($project);
+            $project->setImages($images);
+        }
     }
 }

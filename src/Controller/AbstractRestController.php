@@ -21,7 +21,7 @@ abstract class AbstractRestController extends WP_REST_Controller
     const REGISTER_REST_ROUTE_METHODS  = 'methods';
     const REGISTER_REST_ROUTE_CALLBACK = 'callback';
 
-    public $routes = [];
+    private $routes = [];
 
     /**
      * Initialize the controller by registering it's routes.
