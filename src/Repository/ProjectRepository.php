@@ -29,26 +29,36 @@ class ProjectRepository implements ProjectRepositoryInterface
     private function __construct()
     {
         $this->imageRepository = ImageRepository::getInstance();
-        $this->projectMapper = ProjectMapper::getInstance();
+        $this->projectMapper   = ProjectMapper::getInstance();
     }
 
     /**
      * find all projects.
+     * @param bool $addImages
      * @return array
      */
-    public function findAll()
+    public function findAll($addImages = true)
     {
-        $projects = [];
         $projectPosts = get_posts([
             'post_type' => self::TYPE_PROJECT,
             'posts_per_page' => self::UNLIMITED
         ]);
-        foreach ($projectPosts as $projectPost) {
-            $project = $this->projectMapper->mapProject($projectPost);
-            $projectImages = $this->imageRepository->findImages($project);
-            $project->setImages($projectImages);
-            $projects[] = $project;
+        $projects = $this->projectMapper->mapProjects($projectPosts);
+        if ($addImages === true) {
+            $this->addImagesToProjects($projects);
         }
         return $projects;
+    }
+
+    /**
+     * Fetch the images for the specified projects and add them to the entity.
+     * @param array $projects
+     */
+    private function addImagesToProjects(array $projects)
+    {
+        foreach ($projects as $project) {
+            $images = $this->imageRepository->findImages($project);
+            $project->setImages($images);
+        }
     }
 }
