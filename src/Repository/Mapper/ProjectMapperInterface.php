@@ -9,11 +9,18 @@ use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use WP_Post;
 
 /**
- * All functionality to map a WP_Post objects to Project object.
+ * This
  * @package JurgenRomeijn\ProjectsRest\Repository\Mapper
  */
 interface ProjectMapperInterface
 {
+    /**
+     * Map an array of WP_Post objects to Project objects.
+     * @param array $posts
+     * @return array
+     */
+    public function mapProjects(array $posts);
+
     /**
      * Map a WP_Post object to a Project.
      * @param WP_Post $post
