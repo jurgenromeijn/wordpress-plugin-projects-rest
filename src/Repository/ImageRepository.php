@@ -45,11 +45,11 @@ class ImageRepository implements ImageRepositoryInterface
 
     /**
      * @param WP_Post $image
-     * @return mixed
+     * @return array
      */
     private function getImageMetaData(WP_Post $image)
     {
-        $metaData = wp_get_attachment_metadata($image->id);
+        $metaData = wp_get_attachment_metadata($image->ID);
         return ($metaData !== false ) ? $metaData : null;
     }
 }
