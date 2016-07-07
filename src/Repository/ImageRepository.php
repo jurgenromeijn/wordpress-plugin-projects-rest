@@ -6,6 +6,7 @@
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
+use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapper;
 use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
 use WP_Post;
 
@@ -19,12 +20,14 @@ class ImageRepository implements ImageRepositoryInterface
 
     const TYPE_IMAGE = 'image';
 
+    private $imageMapper;
+
     /**
      * ImageRepository constructor.
      */
     private function __construct()
     {
-        // Do nothing
+        $this->imageMapper = ImageMapper::getInstance();
     }
 
     /**
@@ -38,7 +41,7 @@ class ImageRepository implements ImageRepositoryInterface
         $imagePosts = get_attached_media(self::TYPE_IMAGE, $project->getId());
         foreach ($imagePosts as $imagePost) {
             $metaData = $this->getImageMetaData($imagePost);
-            // Todo: add mapper code here
+            $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
         }
         return $images;
     }

@@ -20,6 +20,7 @@ class ProjectRepository implements ProjectRepositoryInterface
     const TYPE_PROJECT = 'project';
     const UNLIMITED = -1;
 
+    private $imageRepository;
     private $projectMapper;
 
     /**
@@ -27,19 +28,27 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     private function __construct()
     {
+        $this->imageRepository = ImageRepository::getInstance();
         $this->projectMapper = ProjectMapper::getInstance();
     }
 
     /**
      * find all projects.
-     * @return Project
+     * @return array
      */
     public function findAll()
     {
+        $projects = [];
         $projectPosts = get_posts([
             'post_type' => self::TYPE_PROJECT,
             'posts_per_page' => self::UNLIMITED
         ]);
-        return $this->projectMapper->mapProjects($projectPosts);
+        foreach ($projectPosts as $projectPost) {
+            $project = $this->projectMapper->mapProject($projectPost);
+            $projectImages = $this->imageRepository->findImages($project);
+            $project->setImages($projectImages);
+            $projects[] = $project;
+        }
+        return $projects;
     }
 }

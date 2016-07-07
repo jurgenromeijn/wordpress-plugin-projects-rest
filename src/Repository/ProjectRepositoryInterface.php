@@ -15,7 +15,7 @@ interface ProjectRepositoryInterface
 {
     /**
      * find all projects.
-     * @return Project
+     * @return array
      */
     public function findAll();
 }
