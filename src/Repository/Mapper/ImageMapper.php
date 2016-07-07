@@ -17,6 +17,9 @@ class ImageMapper implements ImageMapperInterface
 {
     use SingletonTrait;
 
+    const META_WIDTH  = 'width';
+    const META_HEIGHT = 'height';
+
     /**
      * ImageMapper constructor.
      */
@@ -37,6 +40,8 @@ class ImageMapper implements ImageMapperInterface
 
         $image->setUrl($postImage->guid);
         $image->setCaption($postImage->post_excerpt);
+        $image->setWidth($metaData[self::META_WIDTH]);
+        $image->setHeight($metaData[self::META_HEIGHT]);
 
         return $image;
     }
