@@ -10,7 +10,7 @@ use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use WP_Post;
 
 /**
- * All functionality to map a single or multiple WP_Post objects to Project objects.
+ * All functionality to map a WP_Post objects to Project object.
  * @package JurgenRomeijn\ProjectsRest\Repository\Mapper
  */
 class ProjectMapper implements ProjectMapperInterface
@@ -23,22 +23,6 @@ class ProjectMapper implements ProjectMapperInterface
     private function __construct()
     {
         // Do nothing
-    }
-
-    /**
-     * Map an array of WP_Post objects to Project objects.
-     * @param array $posts
-     * @return array
-     */
-    public function mapProjects(array $posts)
-    {
-        $projects = [];
-
-        foreach ($posts as $post) {
-            $projects[] = $this->mapProject($post);
-        }
-
-        return $projects;
     }
 
     /**
