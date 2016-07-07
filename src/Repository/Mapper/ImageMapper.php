@@ -39,6 +39,7 @@ class ImageMapper implements ImageMapperInterface
         $image = new Image();
 
         $image->setUrl($postImage->guid);
+        $image->setAltText($postImage->post_excerpt);
         $image->setCaption($postImage->post_excerpt);
         $image->setWidth($metaData[self::META_WIDTH]);
         $image->setHeight($metaData[self::META_HEIGHT]);
