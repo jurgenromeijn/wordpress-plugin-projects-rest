@@ -5,6 +5,7 @@
 
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
+use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapper;
 use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
@@ -54,5 +55,15 @@ class ImageRepository implements ImageRepositoryInterface
     {
         $metaData = wp_get_attachment_metadata($image->ID);
         return ($metaData !== false ) ? $metaData : null;
+    }
+
+    /**
+     * Find the featured image for a project.
+     * @param Project $project
+     * @return Image
+     */
+    public function findFeaturedImage(Project $project)
+    {
+        // TODO: Implement findFeaturedImage() method.
     }
 }

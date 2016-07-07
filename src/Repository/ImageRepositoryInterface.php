@@ -5,6 +5,7 @@
 
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
+use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 
 /**
@@ -19,4 +20,11 @@ interface ImageRepositoryInterface
      * @return array
      */
     public function findImages(Project $project);
+
+    /**
+     * Find the featured image for a project.
+     * @param Project $project
+     * @return Image
+     */
+    public function findFeaturedImage(Project $project);
 }
