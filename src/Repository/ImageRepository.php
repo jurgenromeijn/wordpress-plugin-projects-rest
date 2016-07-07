@@ -39,11 +39,13 @@ class ImageRepository implements ImageRepositoryInterface
     public function findImages(Project $project)
     {
         $images = [];
+
         $imagePosts = get_attached_media(self::TYPE_IMAGE, $project->getId());
         foreach ($imagePosts as $imagePost) {
             $metaData = $this->getImageMetaData($imagePost);
             $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
         }
+
         return $images;
     }
 
@@ -54,7 +56,7 @@ class ImageRepository implements ImageRepositoryInterface
     private function getImageMetaData(WP_Post $image)
     {
         $metaData = wp_get_attachment_metadata($image->ID);
-        return ($metaData !== false ) ? $metaData : null;
+        return ($metaData !== false) ? $metaData : null;
     }
 
     /**
@@ -64,6 +66,15 @@ class ImageRepository implements ImageRepositoryInterface
      */
     public function findFeaturedImage(Project $project)
     {
-        // TODO: Implement findFeaturedImage() method.
+        $image = null;
+
+        $featuredImageId = get_post_thumbnail_id($project->getId());
+        if ($featuredImageId !== null) {
+            $imagePost = get_post($featuredImageId);
+            $metaData = $this->getImageMetaData($imagePost);
+            $image = $this->imageMapper->mapImage($imagePost, $metaData);
+        }
+
+        return $image;
     }
 }
