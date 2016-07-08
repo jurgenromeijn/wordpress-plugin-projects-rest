@@ -2,6 +2,8 @@
   "name": "jurgenromeijn/wordpress-plugin-projects-rest",
   "type": "wordpress-plugin",
   "require": {
+    "php": ">=5.4",
     "composer/installers": "~1.0"
+    "wpackagist-plugin/rest-api": ">=2.0-beta13"
   }
 }
