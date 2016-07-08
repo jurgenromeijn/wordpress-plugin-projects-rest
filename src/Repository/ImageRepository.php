@@ -50,16 +50,6 @@ class ImageRepository implements ImageRepositoryInterface
     }
 
     /**
-     * @param WP_Post $image
-     * @return array
-     */
-    private function getImageMetaData(WP_Post $image)
-    {
-        $metaData = wp_get_attachment_metadata($image->ID);
-        return ($metaData !== false) ? $metaData : null;
-    }
-
-    /**
      * Find the featured image for a project.
      * @param Project $project
      * @return Image
@@ -76,5 +66,15 @@ class ImageRepository implements ImageRepositoryInterface
         }
 
         return $image;
+    }
+
+    /**
+     * @param WP_Post $image
+     * @return array
+     */
+    private function getImageMetaData(WP_Post $image)
+    {
+        $metaData = wp_get_attachment_metadata($image->ID);
+        return ($metaData !== false) ? $metaData : null;
     }
 }

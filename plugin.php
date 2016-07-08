@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Portfolio Projects Rest
- * Description: A plugin that creates the rest interface for the project post type.
+ * Description: A WordPress plugin that creates the rest interface for the project post type.
  * Author: Jurgen Romeijn <jurgen.romeijn@gmail.com>
  * Author URI: http://www.jurgenromeijn.com
  * Version: 0.1
