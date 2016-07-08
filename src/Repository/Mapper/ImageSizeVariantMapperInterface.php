@@ -5,6 +5,7 @@
 
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
+use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\ImageSizeVariant;
 
 /**
@@ -15,15 +16,16 @@ interface ImageSizeVariantMapperInterface
 {
     /**
      * Map the meta data to an associative array of image size variants.
+     * @param Image $image
      * @param array $metaData
      * @return array
      */
-    public function mapImageSizeVariants(array $metaData);
+    public function mapImageSizeVariants(Image $image, array $metaData);
 
     /**
      * Map the specific meta data of an image to a size variant.
      * @param array $variantMetaData
      * @return ImageSizeVariant
      */
-    public function mapImageSizeVariant(array $variantMetaData);
+    public function mapImageSizeVariant(Image $image, array $variantMetaData);
 }
