@@ -1,9 +1,30 @@
 {
   "name": "jurgenromeijn/wordpress-plugin-projects-rest",
+  "homepage": "https://github.com/jurgenromeijn/wordpress-plugin-projects-rest",
+  "description": "Description: A WordPress plugin that creates the rest interface for the project post type.",
+  "license": "GPL-3.0",
   "type": "wordpress-plugin",
+  "keywords": [
+    "WordPress", "plugins", "themes", "php", "projects", "rest"
+  ],
+  "authors": [
+    {
+      "name": "Jurgen Romeijn",
+      "email": "jurgen.romeijn@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
   "require": {
     "php": ">=5.4",
-    "composer/installers": "~1.0"
+    "composer/installers": "~1.0",
     "wpackagist-plugin/rest-api": ">=2.0-beta13"
+  },
+  "autoload": {
+    "psr-4": {"JurgenRomeijn\\ProjectsRest\\": "src/"}
   }
 }
