@@ -13,7 +13,7 @@ class Image extends ImageSizeVariant
 {
     public $altText;
     public $caption;
-    private $sizeVariants;
+    public $sizeVariants;
 
     /**
      * Image constructor.

@@ -20,12 +20,14 @@ class ImageMapper implements ImageMapperInterface
     const META_WIDTH  = 'width';
     const META_HEIGHT = 'height';
 
+    private $imageSizeVariantMapper;
+
     /**
      * ImageMapper constructor.
      */
     private function __construct()
     {
-        // Do nothing
+        $this->imageSizeVariantMapper = ImageSizeVariantMapper::getInstance();
     }
 
     /**
@@ -43,6 +45,7 @@ class ImageMapper implements ImageMapperInterface
         $image->setCaption($postImage->post_excerpt);
         $image->setWidth($metaData[self::META_WIDTH]);
         $image->setHeight($metaData[self::META_HEIGHT]);
+        $image->setSizeVariants($this->imageSizeVariantMapper->mapImageSizeVariants($image, $metaData));
 
         return $image;
     }
