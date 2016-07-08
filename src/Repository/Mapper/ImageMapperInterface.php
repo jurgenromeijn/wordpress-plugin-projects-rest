@@ -6,7 +6,7 @@
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
-use WP_Post;
+use WP_Post as WordPressPost;
 
 /**
  * All functionality to map a WP_Post objects and an array of meta data to an Image object.
@@ -15,10 +15,10 @@ use WP_Post;
 interface ImageMapperInterface
 {
     /**
-     * Map a WP_Post object and an array of meta data to an Image object.
-     * @param WP_Post $image
+     * Map a WordPressPost object and an array of meta data to an Image object.
+     * @param WordPressPost $image
      * @param array $metaData
      * @return Image
      */
-    public function mapImage(WP_Post $image, array $metaData);
+    public function mapImage(WordPressPost $image, array $metaData);
 }

@@ -8,13 +8,13 @@ namespace JurgenRomeijn\ProjectsRest\Controller;
 use JurgenRomeijn\ProjectsRest\Model\Internal\Route;
 use JurgenRomeijn\ProjectsRest\ProjectRestPlugin;
 use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
-use WP_REST_Controller;
+use WP_REST_Controller as WordPressRestController;
 
 /**
  * This class contains all generic functionality shared by all controllers in the plugin.
  * @package JurgenRomeijn\ProjectsRest\Controller
  */
-abstract class AbstractRestController extends WP_REST_Controller
+abstract class AbstractRestController extends WordPressRestController
 {
     use SingletonTrait;
 

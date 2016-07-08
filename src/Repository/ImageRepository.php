@@ -9,7 +9,7 @@ use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapper;
 use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
-use WP_Post;
+use WP_Post as WordPressPost;
 
 /**
  * A repository to fetch images from the database.
@@ -69,10 +69,10 @@ class ImageRepository implements ImageRepositoryInterface
     }
 
     /**
-     * @param WP_Post $image
+     * @param WordPressPost $image
      * @return array
      */
-    private function getImageMetaData(WP_Post $image)
+    private function getImageMetaData(WordPressPost $image)
     {
         $metaData = wp_get_attachment_metadata($image->ID);
         return ($metaData !== false) ? $metaData : null;

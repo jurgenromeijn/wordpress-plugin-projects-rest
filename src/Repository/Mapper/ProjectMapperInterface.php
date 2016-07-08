@@ -6,7 +6,7 @@
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
-use WP_Post;
+use WP_Post as WordPressPost;
 
 /**
  * All functionality to map a single or multiple WP_Post objects to Project objects.
@@ -15,16 +15,16 @@ use WP_Post;
 interface ProjectMapperInterface
 {
     /**
-     * Map an array of WP_Post objects to Project objects.
+     * Map an array of WordPressPost objects to Project objects.
      * @param array $posts
      * @return array
      */
     public function mapProjects(array $posts);
 
     /**
-     * Map a WP_Post object to a Project.
-     * @param WP_Post $post
+     * Map a WordPressPost object to a Project.
+     * @param WordPressPost $post
      * @return Project
      */
-    public function mapProject(WP_Post $post);
+    public function mapProject(WordPressPost $post);
 }

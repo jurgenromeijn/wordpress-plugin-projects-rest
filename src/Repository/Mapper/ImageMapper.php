@@ -7,7 +7,7 @@ namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
-use WP_Post;
+use WP_Post as WordPressPost;
 
 /**
  * All functionality to map a WP_Post objects and an array of meta data to an Image object.
@@ -32,11 +32,11 @@ class ImageMapper implements ImageMapperInterface
 
     /**
      * Map a WP_Post object and an array of meta data to an Image object.
-     * @param WP_Post $postImage
+     * @param WordPressPost $postImage
      * @param array $metaData
      * @return Image
      */
-    public function mapImage(WP_Post $postImage, array $metaData)
+    public function mapImage(WordPressPost $postImage, array $metaData)
     {
         $image = new Image();
 

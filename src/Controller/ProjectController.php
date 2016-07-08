@@ -7,7 +7,7 @@ namespace JurgenRomeijn\ProjectsRest\Controller;
 
 use JurgenRomeijn\ProjectsRest\Repository\ProjectRepository;
 use JurgenRomeijn\ProjectsRest\Util\HttpMethods;
-use WP_REST_Response;
+use WP_REST_Response as WordPressRestResponse;
 
 /**
  * The main controller which manages the Project entity.
@@ -41,6 +41,6 @@ class ProjectController extends AbstractRestController
     public function index()
     {
         $projects = $this->projectRepository->findAll();
-        return new WP_REST_Response($projects);
+        return new WordPressRestResponse($projects);
     }
 }
