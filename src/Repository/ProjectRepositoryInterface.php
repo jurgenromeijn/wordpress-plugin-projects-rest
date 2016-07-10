@@ -5,8 +5,6 @@
 
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
-use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
-
 /**
  * This interface describes all functionality the ProjectRepository should have.
  * @package JurgenRomeijn\ProjectsRest\Repository

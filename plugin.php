@@ -10,6 +10,9 @@
  *
  * @author Jurgen Romeijn <jurgen.romeijn@gmail.com>
  */
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Autoload all classes by using the composer auto loader.
@@ -17,7 +20,14 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 /**
+ * Load all components
+ */
+$container = new ContainerBuilder();
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/resources/config'));
+$loader->load('components.yml');
+
+/**
  * Set up the plugin.
  */
-$projectRestPlugin = \JurgenRomeijn\ProjectsRest\ProjectRestPlugin::getInstance();
+$projectRestPlugin = $container->get('project_rest_plugin');
 $projectRestPlugin->init();

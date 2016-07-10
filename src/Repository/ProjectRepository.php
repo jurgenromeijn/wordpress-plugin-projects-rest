@@ -6,8 +6,7 @@
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
-use JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapper;
-use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
+use JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapperInterface;
 
 /**
  * A repository to fetch projects from the database.
@@ -15,8 +14,6 @@ use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
  */
 class ProjectRepository implements ProjectRepositoryInterface
 {
-    use SingletonTrait;
-
     const TYPE_PROJECT = 'project';
     const UNLIMITED = -1;
 
@@ -25,11 +22,13 @@ class ProjectRepository implements ProjectRepositoryInterface
 
     /**
      * ProjectRepository constructor.
+     * @param ImageRepositoryInterface $imageRepository
+     * @param ProjectMapperInterface $projectMapper
      */
-    private function __construct()
+    public function __construct(ImageRepositoryInterface $imageRepository, ProjectMapperInterface $projectMapper)
     {
-        $this->imageRepository = ImageRepository::getInstance();
-        $this->projectMapper   = ProjectMapper::getInstance();
+        $this->imageRepository = $imageRepository;
+        $this->projectMapper   = $projectMapper;
     }
 
     /**
