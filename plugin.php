@@ -15,11 +15,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Autoload all classes by using the composer auto loader.
- */
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
-/**
  * Load all components
  */
 $container = new ContainerBuilder();
