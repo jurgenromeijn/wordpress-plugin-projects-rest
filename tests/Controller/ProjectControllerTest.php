@@ -5,6 +5,7 @@
 
 namespace JurgenRomeijn\ProjectsRest\Controller;
 
+use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -13,18 +14,125 @@ use PHPUnit_Framework_TestCase as TestCase;
  */
 class ProjectControllerTest extends TestCase
 {
-    public function testIndex()
+    private $project1;
+    private $project2;
+
+    public function setUp()
     {
-        // Todo: implement
+        $this->project1 = new Project(
+            1,
+            'project1',
+            'Project1',
+            'Lorem Ipsum1',
+            'Lorem Ipsum1',
+            null,
+            []
+        );
+        $this->project2 = new Project(
+            2,
+            'project2',
+            'Project2',
+            'Lorem Ipsum2',
+            'Lorem Ipsum2',
+            null,
+            []
+        );
     }
 
-    public function testIndexEmpty()
+    public function testIndexMultipleProjects()
     {
-        // Todo: implement
+        // data
+        $projects = [
+            $this->project1,
+            $this->project2
+        ];
+
+        // mocks
+        $projectRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+        $projectRepositoryMock->method('findAll')->willReturn($projects);
+
+        // setup
+        $projectController = new ProjectController($projectRepositoryMock);
+        $response = $projectController->index();
+
+        // tests
+        $this->assertNotNull($response->get_data());
+        $this->assertNotEmpty($response->get_data());
+        $this->assertSameSize($response->get_data(), $projects);
+        $this->assertEquals($response->get_data(), $projects);
+        $this->assertEquals($response->get_data()[1], $projects[1]);
+        $this->assertEquals($response->get_data()[1]->getId(), $projects[1]->getId());
+        $this->assertJson($response->jsonSerialize());
+        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode($projects));
     }
 
-    public function testIndexNull()
+    public function testIndexOneProject()
     {
-        //Todo: implement
+        // data
+        $projects = [
+            $this->project1
+        ];
+
+        // mocks
+        $projectRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+        $projectRepositoryMock->method('findAll')->willReturn($projects);
+
+        // setup
+        $projectController = new ProjectController($projectRepositoryMock);
+        $response = $projectController->index();
+
+        // tests
+        $this->assertNotNull($response->get_data());
+        $this->assertNotEmpty($response->get_data());
+        $this->assertSameSize($response->get_data(), $projects);
+        $this->assertEquals($response->get_data(), $projects);
+        $this->assertEquals($response->get_data()[0], $projects[0]);
+        $this->assertEquals($response->get_data()[0]->getId(), $projects->getId());
+        $this->assertJson($response->jsonSerialize());
+        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode($projects));
+    }
+
+    public function testIndexEmptyProjects()
+    {
+        // data
+        $projects = [];
+
+        // mocks
+        $projectRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+        $projectRepositoryMock->method('findAll')->willReturn($projects);
+
+        // setup
+        $projectController = new ProjectController($projectRepositoryMock);
+        $response = $projectController->index();
+
+        // tests
+        $this->assertNotNull($response->get_data());
+        $this->assertEmpty($response->get_data());
+        $this->assertJson($response->jsonSerialize());
+        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode($projects));
+    }
+
+    public function testIndexNullProjects()
+    {
+        // data
+        $projects = null;
+
+        // mocks
+        $projectRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+        $projectRepositoryMock->method('findAll')->willReturn($projects);
+
+        // setup
+        $projectController = new ProjectController($projectRepositoryMock);
+        $response = $projectController->index();
+
+        // tests
+        $this->assertNotNull($response->get_data());
+        $this->assertEmpty($response->get_data());
+        $this->assertJson($response->jsonSerialize());
+        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode([]));
     }
 }
