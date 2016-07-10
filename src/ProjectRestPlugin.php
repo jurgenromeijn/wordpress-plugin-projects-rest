@@ -18,9 +18,13 @@ class ProjectRestPlugin
 
     private $projectController;
 
-    public function __construct()
+    /**
+     * ProjectRestPlugin constructor.
+     * @param ProjectController $projectController
+     */
+    public function __construct(ProjectController $projectController)
     {
-        $this->projectController = ProjectController::getInstance();
+        $this->projectController = $projectController;
     }
 
     /**

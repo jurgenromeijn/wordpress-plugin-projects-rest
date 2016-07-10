@@ -20,7 +20,7 @@ class ProjectController extends AbstractRestController
     /**
      * ProjectController constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         $this->projectRepository = ProjectRepository::getInstance();
     }

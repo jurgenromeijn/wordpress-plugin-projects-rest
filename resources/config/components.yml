@@ -1,3 +1,7 @@
 services:
   project_rest_plugin:
     class: JurgenRomeijn\ProjectsRest\ProjectRestPlugin
+    arguments: [@project_controller]
+
+  project_controller:
+    class: JurgenRomeijn\ProjectsRest\Controller\ProjectController
