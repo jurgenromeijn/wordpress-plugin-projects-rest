@@ -7,7 +7,6 @@ namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\ImageSizeVariant;
-use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
 
 /**
  * All functionality to map an array of metadata to the ImageSizeVariant entity.
@@ -15,20 +14,10 @@ use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
  */
 class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
 {
-    use SingletonTrait;
-
     const META_SIZES  = 'sizes';
     const META_WIDTH  = 'width';
     const META_HEIGHT = 'height';
     const META_FILE   = 'file';
-
-    /**
-     * ImageSizeVariantMapper constructor.
-     */
-    public function __construct()
-    {
-        // Do nothing
-    }
 
     /**
      * Map the meta data to an associative array of image size variants.

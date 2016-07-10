@@ -5,7 +5,7 @@
 
 namespace JurgenRomeijn\ProjectsRest\Controller;
 
-use JurgenRomeijn\ProjectsRest\Repository\ProjectRepository;
+use JurgenRomeijn\ProjectsRest\Repository\ProjectRepositoryInterface;
 use JurgenRomeijn\ProjectsRest\Util\HttpMethods;
 use WP_REST_Response as WordPressRestResponse;
 
@@ -19,10 +19,11 @@ class ProjectController extends AbstractRestController
 
     /**
      * ProjectController constructor.
+     * @param ProjectRepositoryInterface $projectRepository
      */
-    public function __construct()
+    public function __construct(ProjectRepositoryInterface $projectRepository)
     {
-        $this->projectRepository = ProjectRepository::getInstance();
+        $this->projectRepository = $projectRepository;
     }
 
     /**

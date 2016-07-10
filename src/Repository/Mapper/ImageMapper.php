@@ -6,7 +6,6 @@
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
-use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
 use WP_Post as WordPressPost;
 
 /**
@@ -15,8 +14,6 @@ use WP_Post as WordPressPost;
  */
 class ImageMapper implements ImageMapperInterface
 {
-    use SingletonTrait;
-
     const META_WIDTH  = 'width';
     const META_HEIGHT = 'height';
 
@@ -24,10 +21,11 @@ class ImageMapper implements ImageMapperInterface
 
     /**
      * ImageMapper constructor.
+     * @param ImageSizeVariantMapperInterface $imageSizeVariantMapper
      */
-    private function __construct()
+    public function __construct(ImageSizeVariantMapperInterface $imageSizeVariantMapper)
     {
-        $this->imageSizeVariantMapper = ImageSizeVariantMapper::getInstance();
+        $this->imageSizeVariantMapper = $imageSizeVariantMapper;
     }
 
     /**

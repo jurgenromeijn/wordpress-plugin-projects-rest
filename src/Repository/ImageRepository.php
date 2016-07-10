@@ -7,8 +7,7 @@ namespace JurgenRomeijn\ProjectsRest\Repository;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
-use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapper;
-use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
+use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapperInterface;
 use WP_Post as WordPressPost;
 
 /**
@@ -17,18 +16,17 @@ use WP_Post as WordPressPost;
  */
 class ImageRepository implements ImageRepositoryInterface
 {
-    use SingletonTrait;
-
     const TYPE_IMAGE = 'image';
 
     private $imageMapper;
 
     /**
      * ImageRepository constructor.
+     * @param ImageMapperInterface $imageMapper
      */
-    private function __construct()
+    public function __construct(ImageMapperInterface $imageMapper)
     {
-        $this->imageMapper = ImageMapper::getInstance();
+        $this->imageMapper = $imageMapper;
     }
 
     /**
