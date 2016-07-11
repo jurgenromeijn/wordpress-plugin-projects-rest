@@ -63,8 +63,6 @@ class ProjectControllerTest extends TestCase
         $this->assertEquals($response->get_data(), $projects);
         $this->assertEquals($response->get_data()[1], $projects[1]);
         $this->assertEquals($response->get_data()[1]->getId(), $projects[1]->getId());
-        $this->assertJson($response->jsonSerialize());
-        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode($projects));
     }
 
     public function testIndexOneProject()
@@ -89,9 +87,7 @@ class ProjectControllerTest extends TestCase
         $this->assertSameSize($response->get_data(), $projects);
         $this->assertEquals($response->get_data(), $projects);
         $this->assertEquals($response->get_data()[0], $projects[0]);
-        $this->assertEquals($response->get_data()[0]->getId(), $projects->getId());
-        $this->assertJson($response->jsonSerialize());
-        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode($projects));
+        $this->assertEquals($response->get_data()[0]->getId(), $projects[0]->getId());
     }
 
     public function testIndexEmptyProjects()
@@ -111,8 +107,6 @@ class ProjectControllerTest extends TestCase
         // tests
         $this->assertNotNull($response->get_data());
         $this->assertEmpty($response->get_data());
-        $this->assertJson($response->jsonSerialize());
-        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode($projects));
     }
 
     public function testIndexNullProjects()
@@ -132,7 +126,5 @@ class ProjectControllerTest extends TestCase
         // tests
         $this->assertNotNull($response->get_data());
         $this->assertEmpty($response->get_data());
-        $this->assertJson($response->jsonSerialize());
-        $this->assertJsonStringEqualsJsonString($response->jsonSerialize(), json_encode([]));
     }
 }

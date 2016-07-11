@@ -42,6 +42,9 @@ class ProjectController extends AbstractRestController
     public function index()
     {
         $projects = $this->projectRepository->findAll();
+        if ($projects === null) {
+            $projects = [];
+        }
         return new WordPressRestResponse($projects);
     }
 }
