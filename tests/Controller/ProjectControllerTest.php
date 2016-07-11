@@ -49,7 +49,7 @@ class ProjectControllerTest extends TestCase
 
         // mocks
         $projectRepositoryMock =
-            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\ProjectRepositoryInterface')->getMock();
         $projectRepositoryMock->method('findAll')->willReturn($projects);
 
         // setup
@@ -76,7 +76,7 @@ class ProjectControllerTest extends TestCase
 
         // mocks
         $projectRepositoryMock =
-            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\ProjectRepositoryInterface')->getMock();
         $projectRepositoryMock->method('findAll')->willReturn($projects);
 
         // setup
@@ -101,7 +101,7 @@ class ProjectControllerTest extends TestCase
 
         // mocks
         $projectRepositoryMock =
-            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\ProjectRepositoryInterface')->getMock();
         $projectRepositoryMock->method('findAll')->willReturn($projects);
 
         // setup
@@ -122,7 +122,7 @@ class ProjectControllerTest extends TestCase
 
         // mocks
         $projectRepositoryMock =
-            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Controller\ProjectController')->getMock();
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\ProjectRepositoryInterface')->getMock();
         $projectRepositoryMock->method('findAll')->willReturn($projects);
 
         // setup
