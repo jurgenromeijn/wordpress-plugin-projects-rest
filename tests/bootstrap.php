@@ -19,6 +19,7 @@ require(PLUGINS_ROOT . 'rest-api/lib/endpoints/class-wp-rest-controller.php');
 
 // Load require wordpress classes
 require(WP_ROOT . 'wp-includes/functions.php');
+require(WP_ROOT . 'wp-includes/class-wp-post.php');
 require(WP_ROOT . 'wp-includes/class-wp-http-response.php');
 require(WP_ROOT . 'wp-includes/rest-api/class-wp-rest-server.php');
 require(WP_ROOT . 'wp-includes/rest-api/class-wp-rest-response.php');
