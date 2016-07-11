@@ -18,7 +18,9 @@ class ProjectMapperTest extends TestCase
      * @var WordPressPost
      */
     private $projectPost2;
-
+    /**
+     * @var ProjectMapper
+     */
     private $projectMapper;
 
     public function setUp()
