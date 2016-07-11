@@ -24,7 +24,9 @@ class ProjectMapper implements ProjectMapperInterface
         $projects = [];
 
         foreach ($posts as $post) {
-            $projects[] = $this->mapProject($post);
+            if ($post !== null) {
+                $projects[] = $this->mapProject($post);
+            }
         }
 
         return $projects;

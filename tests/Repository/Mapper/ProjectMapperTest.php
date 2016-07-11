@@ -90,19 +90,6 @@ class ProjectMapperTest extends TestCase
         $this->assertEmpty($mappedProjects);
     }
 
-    public function testMapProjectsNull()
-    {
-        // data
-        $projectPosts = null;
-
-        // setup
-        $mappedProjects = $this->projectMapper->mapProjects($projectPosts);
-
-        // tests
-        $this->assertNotNull($mappedProjects);
-        $this->assertEmpty($mappedProjects);
-    }
-
     public function testMapProject()
     {
         // data
@@ -117,19 +104,8 @@ class ProjectMapperTest extends TestCase
         $this->assertEquals($mappedProject->getTitle(), $projectPost->post_title);
         $this->assertEquals($mappedProject->getContent(), $projectPost->post_content);
         $this->assertEquals($mappedProject->getExcerpt(), $projectPost->post_excerpt);
-        $this->assertNull($mappedProject->getFeatuedImage());
+        $this->assertNull($mappedProject->getFeaturedImage());
         $this->assertNotNull($mappedProject->getImages());
-        $this->assertNotEmpty($mappedProject->getImages());
-    }
-
-    public function testMapProjectNull()
-    {
-        // data
-        $projectPost = null;
-
-        $mappedProject = $this->projectMapper->mapProject($projectPost);
-
-        // tests
-        $this->assertNull($mappedProject);
+        $this->assertEmpty($mappedProject->getImages());
     }
 }
