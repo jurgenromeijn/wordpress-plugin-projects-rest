@@ -7,6 +7,7 @@ namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\ImageSizeVariant;
+use JurgenRomeijn\ProjectsRest\Util\ArrayHelper;
 
 /**
  * All functionality to map an array of metadata to the ImageSizeVariant entity.
@@ -29,7 +30,7 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
     {
         $imageSizeVariants = [];
 
-        $variants = $this->getArrayFromMetaData(self::META_SIZES, $metaData);
+        $variants = ArrayHelper::findArray(self::META_SIZES, $metaData);
         foreach ($variants as $variantName => $variantMetaData) {
             if (is_string($variantName) and !empty($variantMetaData)) {
                 $imageSizeVariants[$variantName] = $this->mapImageSizeVariant($image, $variantMetaData);
@@ -50,10 +51,10 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
         $imageSizeVariant = new ImageSizeVariant();
 
         $imageSizeVariant->setUrl(
-            $this->getFullImageVariantUrl($image, $this->getValueFromMetaData(self::META_FILE, $variantMetaData))
+            $this->getFullImageVariantUrl($image, ArrayHelper::findValue(self::META_FILE, $variantMetaData))
         );
-        $imageSizeVariant->setWidth($this->getValueFromMetaData(self::META_WIDTH, $variantMetaData));
-        $imageSizeVariant->setHeight($this->getValueFromMetaData(self::META_HEIGHT, $variantMetaData));
+        $imageSizeVariant->setWidth(ArrayHelper::findValue(self::META_WIDTH, $variantMetaData));
+        $imageSizeVariant->setHeight(ArrayHelper::findValue(self::META_HEIGHT, $variantMetaData));
 
         return $imageSizeVariant;
     }
@@ -73,35 +74,5 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
             $url = str_replace($oldFileName, $fileName, $imageUrl);
         }
         return $url;
-    }
-
-    /**
-     * Safely et an array from the meta data or return an empty one.
-     * @param $key
-     * @param $metaData
-     * @return array
-     */
-    private function getArrayFromMetaData($key, $metaData)
-    {
-        $array = [];
-        if (array_key_exists($key, $metaData)) {
-            $array = $metaData[$key];
-        }
-        return $array;
-    }
-
-    /**
-     * Safely get a value from the metadata or return null
-     * @param $key
-     * @param $metaData
-     * @return
-     */
-    private function getValueFromMetaData($key, $metaData)
-    {
-        $value = null;
-        if (array_key_exists($key, $metaData)) {
-            $value = $metaData[$key];
-        }
-        return $value;
     }
 }

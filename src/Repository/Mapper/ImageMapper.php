@@ -6,6 +6,7 @@
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
+use JurgenRomeijn\ProjectsRest\Util\ArrayHelper;
 use WP_Post as WordPressPost;
 
 /**
@@ -41,8 +42,8 @@ class ImageMapper implements ImageMapperInterface
         $image->setUrl($postImage->guid);
         $image->setAltText($postImage->post_excerpt);
         $image->setCaption($postImage->post_excerpt);
-        $image->setWidth($this->getValueFromMetaData(self::META_WIDTH, $metaData));
-        $image->setHeight($this->getValueFromMetaData(self::META_HEIGHT, $metaData));
+        $image->setWidth(ArrayHelper::findValue(self::META_WIDTH, $metaData));
+        $image->setHeight(ArrayHelper::findValue(self::META_HEIGHT, $metaData));
         $image->setSizeVariants($this->imageSizeVariantMapper->mapImageSizeVariants($image, $metaData));
 
         return $image;
