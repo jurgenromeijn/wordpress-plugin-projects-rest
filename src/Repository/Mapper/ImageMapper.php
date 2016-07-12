@@ -41,10 +41,25 @@ class ImageMapper implements ImageMapperInterface
         $image->setUrl($postImage->guid);
         $image->setAltText($postImage->post_excerpt);
         $image->setCaption($postImage->post_excerpt);
-        $image->setWidth($metaData[self::META_WIDTH]);
-        $image->setHeight($metaData[self::META_HEIGHT]);
+        $image->setWidth($this->getValueFromMetaData(self::META_WIDTH, $metaData));
+        $image->setHeight($this->getValueFromMetaData(self::META_HEIGHT, $metaData));
         $image->setSizeVariants($this->imageSizeVariantMapper->mapImageSizeVariants($image, $metaData));
 
         return $image;
+    }
+
+    /**
+     * Safely get a value from the metadata or return null
+     * @param $key
+     * @param $metaData
+     * @return
+     */
+    private function getValueFromMetaData($key, $metaData)
+    {
+        $value = null;
+        if (array_key_exists($key, $metaData)) {
+            $value = $metaData[$key];
+        }
+        return $value;
     }
 }
