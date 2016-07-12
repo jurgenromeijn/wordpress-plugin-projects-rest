@@ -141,7 +141,7 @@ class ImageSizeVariantMapperTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function testMapImageSizeVariantsEmpty()
+    public function testMapImageSizeVariantsNoSizes()
     {
         // data
         $metaData = [
@@ -163,6 +163,19 @@ class ImageSizeVariantMapperTest extends TestCase
                 'keywords' => []
             ]
         ];
+
+        // setup
+        $result = $this->imageVariantSizeMapper->mapImageSizeVariants($this->image, $metaData);
+
+        // tests
+        $this->assertNotNull($result);
+        $this->assertEmpty($result);
+    }
+
+    public function testMapImageSizeVariantsEmpty()
+    {
+        // data
+        $metaData = [];
 
         // setup
         $result = $this->imageVariantSizeMapper->mapImageSizeVariants($this->image, $metaData);
