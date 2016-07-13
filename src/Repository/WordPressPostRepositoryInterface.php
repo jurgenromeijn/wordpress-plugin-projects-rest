@@ -37,7 +37,8 @@ interface WordPressPostRepositoryInterface
     /**
      * Find all WordPressPost objects that represent a media item that is attached to a post.
      * @param int $postId
+     * @param string $type
      * @return array
      */
-    public function findAllAttachedImagePosts($postId);
+    public function findAllAttachedPosts($postId, $type);
 }

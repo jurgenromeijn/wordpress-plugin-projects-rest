@@ -18,14 +18,23 @@ class ImageRepository implements ImageRepositoryInterface
 {
     const TYPE_IMAGE = 'image';
 
+    private $wordPressPostRepository;
+    private $wordPressMetaDataRepository;
     private $imageMapper;
 
     /**
      * ImageRepository constructor.
+     * @param WordPressPostRepositoryInterface $wordPressPostRepository
+     * @param WordPressMetaDataRepositoryInterface $wordPressMetaDataRepository
      * @param ImageMapperInterface $imageMapper
      */
-    public function __construct(ImageMapperInterface $imageMapper)
-    {
+    public function __construct(
+        WordPressPostRepositoryInterface $wordPressPostRepository,
+        WordPressMetaDataRepositoryInterface $wordPressMetaDataRepository,
+        ImageMapperInterface $imageMapper
+    ) {
+        $this->wordPressPostRepository = $wordPressPostRepository;
+        $this->wordPressMetaDataRepository = $wordPressMetaDataRepository;
         $this->imageMapper = $imageMapper;
     }
 
@@ -38,9 +47,9 @@ class ImageRepository implements ImageRepositoryInterface
     {
         $images = [];
 
-        $imagePosts = get_attached_media(self::TYPE_IMAGE, $project->getId());
+        $imagePosts = $this->wordPressPostRepository->findAllAttachedPosts($project->getId(), self::TYPE_IMAGE);
         foreach ($imagePosts as $imagePost) {
-            $metaData = $this->getImageMetaData($imagePost);
+            $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
             $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
         }
 
@@ -56,23 +65,12 @@ class ImageRepository implements ImageRepositoryInterface
     {
         $image = null;
 
-        $featuredImageId = get_post_thumbnail_id($project->getId());
-        if ($featuredImageId !== null) {
-            $imagePost = get_post($featuredImageId);
-            $metaData = $this->getImageMetaData($imagePost);
+        $imagePost = $this->wordPressPostRepository->findFeaturedImagePost($project->getId());
+        if ($imagePost !== null) {
+            $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
             $image = $this->imageMapper->mapImage($imagePost, $metaData);
         }
 
         return $image;
-    }
-
-    /**
-     * @param WordPressPost $image
-     * @return array
-     */
-    private function getImageMetaData(WordPressPost $image)
-    {
-        $metaData = wp_get_attachment_metadata($image->ID);
-        return ($metaData !== false) ? $metaData : null;
     }
 }

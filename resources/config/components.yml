@@ -13,7 +13,7 @@ services:
 
   image_repository:
     class: JurgenRomeijn\ProjectsRest\Repository\ImageRepository
-    arguments: [@image_mapper]
+    arguments: [@wordpress_post_repository, @wordpress_metadata_repository, @image_mapper]
 
   wordpress_post_repository:
     class: JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepository

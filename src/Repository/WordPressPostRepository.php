@@ -43,20 +43,23 @@ class WordPressPostRepository implements WordPressPostRepositoryInterface
     public function findFeaturedImagePost($postId)
     {
         $thumbNailPost = null;
+
         $thumbNailId = get_post_thumbnail_id($postId);
         if ($thumbNailId !== null) {
-            $thumbNailPost = $this->find($postId);
+            $thumbNailPost = $this->find($thumbNailId);
         }
+        
         return $thumbNailPost;
     }
 
     /**
      * Find all WordPressPost objects that represent a media item that is attached to a post.
      * @param int $postId
+     * @param string $type
      * @return array
      */
-    public function findAllAttachedImagePosts($postId)
+    public function findAllAttachedPosts($postId, $type)
     {
-        return get_attached_media(self::TYPE_IMAGE, $postId);
+        return get_attached_media($type, $postId);
     }
 }
