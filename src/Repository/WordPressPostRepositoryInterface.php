@@ -28,11 +28,11 @@ interface WordPressPostRepositoryInterface
     public function findAll($postType = null);
 
     /**
-     * Find the post representing the thumbnail of a post.
+     * Find the post representing the featured image of a post.
      * @param int $postId
      * @return WordPressPost
      */
-    public function findThumbnailPost($postId);
+    public function findFeaturedImagePost($postId);
 
     /**
      * Find all WordPressPost objects that represent a media item that is attached to a post.
