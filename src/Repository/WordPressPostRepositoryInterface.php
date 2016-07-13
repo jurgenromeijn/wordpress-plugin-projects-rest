@@ -14,18 +14,18 @@ use WP_Post as WordPressPost;
 interface WordPressPostRepositoryInterface
 {
     /**
+     * Find a WordPressPosts with a certain id;
+     * @param int $id
+     * @return mixed
+     */
+    public function find($id);
+
+    /**
      * Find all WordPressPosts or specify a single postType to return.
      * @param string $postType
      * @return WordPressPost|
      */
     public function findAll($postType = '');
-
-    /**
-     * Find a WordPressPosts with a certain id;
-     * @param $id
-     * @return mixed
-     */
-    public function find($id);
 
     /**
      * Find all WordPressPost objects that represent a media item that is attached to a post.

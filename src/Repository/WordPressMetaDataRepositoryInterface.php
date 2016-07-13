@@ -13,7 +13,7 @@ interface WordPressMetaDataRepositoryInterface
 {
     /**
      * Find an array of metadata for the specified attachment.
-     * @param $attachmentId
+     * @param int $attachmentId
      * @return array
      */
     public function find($attachmentId);
