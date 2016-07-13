@@ -15,20 +15,25 @@ use JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapperInterface;
 class ProjectRepository implements ProjectRepositoryInterface
 {
     const TYPE_PROJECT = 'project';
-    const UNLIMITED = -1;
 
+    private $wordPressPostRepository;
     private $imageRepository;
     private $projectMapper;
 
     /**
      * ProjectRepository constructor.
+     * @param WordPressPostRepositoryInterface $wordPressPostRepository
      * @param ImageRepositoryInterface $imageRepository
      * @param ProjectMapperInterface $projectMapper
      */
-    public function __construct(ImageRepositoryInterface $imageRepository, ProjectMapperInterface $projectMapper)
-    {
+    public function __construct(
+        WordPressPostRepositoryInterface $wordPressPostRepository,
+        ImageRepositoryInterface $imageRepository,
+        ProjectMapperInterface $projectMapper
+    ) {
+        $this->wordPressPostRepository = $wordPressPostRepository;
         $this->imageRepository = $imageRepository;
-        $this->projectMapper   = $projectMapper;
+        $this->projectMapper = $projectMapper;
     }
 
     /**
@@ -38,10 +43,7 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     public function findAll($addImages = true)
     {
-        $projectPosts = get_posts([
-            'post_type' => self::TYPE_PROJECT,
-            'posts_per_page' => self::UNLIMITED
-        ]);
+        $projectPosts = $this->wordPressPostRepository->findAll(self::TYPE_PROJECT);
         $projects = $this->projectMapper->mapProjects($projectPosts);
 
         if ($addImages === true) {
