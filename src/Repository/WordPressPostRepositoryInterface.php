@@ -16,21 +16,28 @@ interface WordPressPostRepositoryInterface
     /**
      * Find a WordPressPosts with a certain id;
      * @param int $id
-     * @return mixed
+     * @return WordPressPost
      */
     public function find($id);
 
     /**
      * Find all WordPressPosts or specify a single postType to return.
      * @param string $postType
-     * @return WordPressPost|
+     * @return array
      */
-    public function findAll($postType = '');
+    public function findAll($postType = null);
+
+    /**
+     * Find the post representing the thumbnail of a post.
+     * @param int $postId
+     * @return WordPressPost
+     */
+    public function findThumbnailPost($postId);
 
     /**
      * Find all WordPressPost objects that represent a media item that is attached to a post.
      * @param int $postId
-     * @return WordPressPost
+     * @return array
      */
     public function findAllAttachedImagePosts($postId);
 }
