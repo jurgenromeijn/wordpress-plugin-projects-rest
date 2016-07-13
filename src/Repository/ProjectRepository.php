@@ -70,8 +70,8 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     private function addImagesToProject(Project $project)
     {
-        $featuredImage = $this->imageRepository->findFeaturedImage($project);
-        $images = $this->imageRepository->findImages($project);
+        $featuredImage = $this->imageRepository->findFeaturedImage($project->getId());
+        $images = $this->imageRepository->findImages($project->getId());
 
         $project->setFeaturedImage($featuredImage);
         $project->setImages($images);

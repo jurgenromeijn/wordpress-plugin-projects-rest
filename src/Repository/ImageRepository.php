@@ -6,7 +6,6 @@
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
-use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapperInterface;
 use WP_Post as WordPressPost;
 
@@ -40,14 +39,14 @@ class ImageRepository implements ImageRepositoryInterface
 
     /**
      * Find images for a project.
-     * @param Project $project
+     * @param int $projectId
      * @return array
      */
-    public function findImages(Project $project)
+    public function findImages($projectId)
     {
         $images = [];
 
-        $imagePosts = $this->wordPressPostRepository->findAllAttachedPosts($project->getId(), self::TYPE_IMAGE);
+        $imagePosts = $this->wordPressPostRepository->findAllAttachedPosts($projectId, self::TYPE_IMAGE);
         foreach ($imagePosts as $imagePost) {
             $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
             $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
@@ -58,14 +57,14 @@ class ImageRepository implements ImageRepositoryInterface
 
     /**
      * Find the featured image for a project.
-     * @param Project $project
+     * @param int $projectId
      * @return Image
      */
-    public function findFeaturedImage(Project $project)
+    public function findFeaturedImage($projectId)
     {
         $image = null;
 
-        $imagePost = $this->wordPressPostRepository->findFeaturedImagePost($project->getId());
+        $imagePost = $this->wordPressPostRepository->findFeaturedImagePost($projectId);
         if ($imagePost !== null) {
             $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
             $image = $this->imageMapper->mapImage($imagePost, $metaData);
