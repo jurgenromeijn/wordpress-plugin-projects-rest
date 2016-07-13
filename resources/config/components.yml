@@ -15,6 +15,12 @@ services:
     class: JurgenRomeijn\ProjectsRest\Repository\ImageRepository
     arguments: [@image_mapper]
 
+  wordpress_post_repository:
+    class: JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepository
+
+  wordpress_metadata_repository:
+    class: JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepository
+
   project_mapper:
     class: JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapper
 
