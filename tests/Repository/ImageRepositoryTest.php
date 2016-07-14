@@ -12,9 +12,11 @@ use WP_Post as WordPressPost;
 
 class ImageRepositoryTest extends TestCase
 {
-    public function testFindImages()
+    private $imagePosts;
+    private $metaData;
+
+    public function setUp()
     {
-        // data
         $imagePosts = [
             new WordPressPost((object)[
                 'ID' => 1,
@@ -68,6 +70,13 @@ class ImageRepositoryTest extends TestCase
                 'keywords' => []
             ]
         ];
+    }
+
+    public function testFindImages()
+    {
+        // data
+        $imagePosts = $this->imagePosts;
+        $metaData = $this->metaData;
 
         // mocks
         $postRepositoryMock =
@@ -149,21 +158,89 @@ class ImageRepositoryTest extends TestCase
         // tests
         $this->assertNotNull($results);
         $this->assertEmpty($results);
-
     }
 
     public function testFindFeaturedImages()
     {
+        // data
+        $imagePost = $this->imagePosts[0];
+        $metaData = $this->metaData;
 
+        // mock
+        $postRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepositoryInterface')->getMock();
+        $postRepositoryMock->method('findFeaturedImage')->willReturn($imagePost);
+
+        $metaDataRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
+                ->getMock();
+        $metaDataRepositoryMock->method('find')->willReturn($metaData);
+
+        // setup
+        $imageRepository = new ImageRepository(
+            $postRepositoryMock,
+            $metaDataRepositoryMock,
+            new ImageMapper(new ImageSizeVariantMapper())
+        );
+        $result = $imageRepository->findFeaturedImage(1);
+
+        //tests
+        $this->assertNotNull($result);
+        $this->assertEquals($result->getUrl(), $imagePost->guid);
+        $this->assertEquals($result->getAltText(), $imagePost->post_excerpt);
+        $this->assertEquals($result->getCaption(), $imagePost->post_excerpt);
+        $this->assertEquals($result->getHeight(), $metaData['height']);
+        $this->assertEquals($result->getWidth(), $metaData['width']);
+        $this->assertNotNull($result->getSizeVariants());
+        $this->assertNotEmpty($result->getSizeVariants());
+        $this->assertEquals($result->getSizeVariants()['thumbnail']->getUrl(), 'http://test.com/1-150x150.jpg');
     }
 
     public function testFindFeaturedImagesEmpty()
     {
+        // mock
+        $postRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepositoryInterface')->getMock();
+        $postRepositoryMock->method('findFeaturedImage')->willReturn([]);
 
+        $metaDataRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
+                ->getMock();
+        $metaDataRepositoryMock->method('find')->willReturn([]);
+
+        // setup
+        $imageRepository = new ImageRepository(
+            $postRepositoryMock,
+            $metaDataRepositoryMock,
+            new ImageMapper(new ImageSizeVariantMapper())
+        );
+        $result = $imageRepository->findFeaturedImage(1);
+
+        //tests
+        $this->assertNull($result);
     }
 
     public function testFindFeaturedImagesNull()
     {
+        // mock
+        $postRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepositoryInterface')->getMock();
+        $postRepositoryMock->method('findFeaturedImage')->willReturn(null);
 
+        $metaDataRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
+                ->getMock();
+        $metaDataRepositoryMock->method('find')->willReturn(null);
+
+        // setup
+        $imageRepository = new ImageRepository(
+            $postRepositoryMock,
+            $metaDataRepositoryMock,
+            new ImageMapper(new ImageSizeVariantMapper())
+        );
+        $result = $imageRepository->findFeaturedImage(1);
+
+        //tests
+        $this->assertNull($result);
     }
 }
