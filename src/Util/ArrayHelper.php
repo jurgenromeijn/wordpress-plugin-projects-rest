@@ -21,7 +21,7 @@ abstract class ArrayHelper
     {
         $returnArray = [];
         if (array_key_exists($key, $array)) {
-            $returnArray = $array[$key];
+            $returnArray = (is_array($array[$key])) ? $array[$key] : [$array[$key]];
         }
         return $returnArray;
     }
