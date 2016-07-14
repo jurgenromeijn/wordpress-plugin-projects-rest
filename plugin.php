@@ -4,7 +4,7 @@
  * Description: A WordPress plugin that creates the rest interface for the project post type.
  * Author: Jurgen Romeijn <jurgen.romeijn@gmail.com>
  * Author URI: http://www.jurgenromeijn.com
- * Version: 1.1
+ * Version: 1.1.1
  * Plugin URI: https://github.com/jurgenromeijn/wordpress-plugin-projects-rest
  * License: GPL3
  *
