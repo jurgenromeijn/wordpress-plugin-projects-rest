@@ -17,7 +17,7 @@ class ImageRepositoryTest extends TestCase
 
     public function setUp()
     {
-        $imagePosts = [
+        $this->imagePosts = [
             new WordPressPost((object)[
                 'ID' => 1,
                 'guid' => 'http://test.com/1.jpg',
@@ -29,7 +29,7 @@ class ImageRepositoryTest extends TestCase
                 'post_excerpt' => 'excerpt2',
             ])
         ];
-        $metaData = [
+        $this->metaData = [
             'width' => 1170,
             'height' => 800,
             'file' => '2013/08/1.jpg',
@@ -169,7 +169,7 @@ class ImageRepositoryTest extends TestCase
         // mock
         $postRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepositoryInterface')->getMock();
-        $postRepositoryMock->method('findFeaturedImage')->willReturn($imagePost);
+        $postRepositoryMock->method('findFeaturedImagePost')->willReturn($imagePost);
 
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
@@ -196,12 +196,12 @@ class ImageRepositoryTest extends TestCase
         $this->assertEquals($result->getSizeVariants()['thumbnail']->getUrl(), 'http://test.com/1-150x150.jpg');
     }
 
-    public function testFindFeaturedImagesEmpty()
+    public function testFindFeaturedImagesNull()
     {
         // mock
         $postRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepositoryInterface')->getMock();
-        $postRepositoryMock->method('findFeaturedImage')->willReturn([]);
+        $postRepositoryMock->method('findFeaturedImagePost')->willReturn(null);
 
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
@@ -220,12 +220,12 @@ class ImageRepositoryTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testFindFeaturedImagesNull()
+    public function testFindFeaturedImagesNullMetaNull()
     {
         // mock
         $postRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepositoryInterface')->getMock();
-        $postRepositoryMock->method('findFeaturedImage')->willReturn(null);
+        $postRepositoryMock->method('findFeaturedImagePost')->willReturn(null);
 
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')

@@ -47,9 +47,11 @@ class ImageRepository implements ImageRepositoryInterface
         $images = [];
 
         $imagePosts = $this->wordPressPostRepository->findAllAttachedPosts($projectId, self::TYPE_IMAGE);
-        foreach ($imagePosts as $imagePost) {
-            $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
-            $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
+        if ($imagePosts !== null) {
+            foreach ($imagePosts as $imagePost) {
+                $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
+                $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
+            }
         }
 
         return $images;
