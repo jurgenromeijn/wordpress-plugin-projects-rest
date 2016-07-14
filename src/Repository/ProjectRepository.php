@@ -43,11 +43,15 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     public function findAll($addImages = true)
     {
-        $projectPosts = $this->wordPressPostRepository->findAll(self::TYPE_PROJECT);
-        $projects = $this->projectMapper->mapProjects($projectPosts);
+        $projects = [];
 
-        if ($addImages === true) {
-            $this->addImagesToProjects($projects);
+        $projectPosts = $this->wordPressPostRepository->findAll(self::TYPE_PROJECT);
+        if ($projectPosts !== null && !empty($projectPosts)) {
+            $projects = $this->projectMapper->mapProjects($projectPosts);
+
+            if ($addImages === true) {
+                $this->addImagesToProjects($projects);
+            }
         }
 
         return $projects;
@@ -73,7 +77,11 @@ class ProjectRepository implements ProjectRepositoryInterface
         $featuredImage = $this->imageRepository->findFeaturedImage($project->getId());
         $images = $this->imageRepository->findImages($project->getId());
 
-        $project->setFeaturedImage($featuredImage);
-        $project->setImages($images);
+        if ($featuredImage !== null) {
+            $project->setFeaturedImage($featuredImage);
+        }
+        if ($images !== null) {
+            $project->setImages($images);
+        }
     }
 }

@@ -91,7 +91,7 @@ class ProjectRepositoryTest extends TestCase
 
         $imageRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\ImageRepositoryInterface')->getMock();
-        $imageRepositoryMock->method('findFeaturedImage')->willReturn([]);
+        $imageRepositoryMock->method('findFeaturedImage')->willReturn(null);
         $imageRepositoryMock->method('findImages')->willReturn([]);
 
         // setup
@@ -178,7 +178,7 @@ class ProjectRepositoryTest extends TestCase
         // mocks
         $imageRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\ImageRepositoryInterface')->getMock();
-        $imageRepositoryMock->method('findFeaturedImage')->willReturn([]);
+        $imageRepositoryMock->method('findFeaturedImage')->willReturn(null);
         $imageRepositoryMock->method('findImages')->willReturn([]);
 
         // setup
