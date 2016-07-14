@@ -6,7 +6,6 @@
 namespace JurgenRomeijn\ProjectsRest\Repository;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
-use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapperInterface;
 use WP_Post as WordPressPost;
 
@@ -18,30 +17,41 @@ class ImageRepository implements ImageRepositoryInterface
 {
     const TYPE_IMAGE = 'image';
 
+    private $wordPressPostRepository;
+    private $wordPressMetaDataRepository;
     private $imageMapper;
 
     /**
      * ImageRepository constructor.
+     * @param WordPressPostRepositoryInterface $wordPressPostRepository
+     * @param WordPressMetaDataRepositoryInterface $wordPressMetaDataRepository
      * @param ImageMapperInterface $imageMapper
      */
-    public function __construct(ImageMapperInterface $imageMapper)
-    {
+    public function __construct(
+        WordPressPostRepositoryInterface $wordPressPostRepository,
+        WordPressMetaDataRepositoryInterface $wordPressMetaDataRepository,
+        ImageMapperInterface $imageMapper
+    ) {
+        $this->wordPressPostRepository = $wordPressPostRepository;
+        $this->wordPressMetaDataRepository = $wordPressMetaDataRepository;
         $this->imageMapper = $imageMapper;
     }
 
     /**
      * Find images for a project.
-     * @param Project $project
+     * @param int $projectId
      * @return array
      */
-    public function findImages(Project $project)
+    public function findImages($projectId)
     {
         $images = [];
 
-        $imagePosts = get_attached_media(self::TYPE_IMAGE, $project->getId());
-        foreach ($imagePosts as $imagePost) {
-            $metaData = $this->getImageMetaData($imagePost);
-            $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
+        $imagePosts = $this->wordPressPostRepository->findAllAttachedPosts($projectId, self::TYPE_IMAGE);
+        if ($imagePosts !== null) {
+            foreach ($imagePosts as $imagePost) {
+                $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
+                $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
+            }
         }
 
         return $images;
@@ -49,30 +59,19 @@ class ImageRepository implements ImageRepositoryInterface
 
     /**
      * Find the featured image for a project.
-     * @param Project $project
+     * @param int $projectId
      * @return Image
      */
-    public function findFeaturedImage(Project $project)
+    public function findFeaturedImage($projectId)
     {
         $image = null;
 
-        $featuredImageId = get_post_thumbnail_id($project->getId());
-        if ($featuredImageId !== null) {
-            $imagePost = get_post($featuredImageId);
-            $metaData = $this->getImageMetaData($imagePost);
+        $imagePost = $this->wordPressPostRepository->findFeaturedImagePost($projectId);
+        if ($imagePost !== null) {
+            $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
             $image = $this->imageMapper->mapImage($imagePost, $metaData);
         }
 
         return $image;
-    }
-
-    /**
-     * @param WordPressPost $image
-     * @return array
-     */
-    private function getImageMetaData(WordPressPost $image)
-    {
-        $metaData = wp_get_attachment_metadata($image->ID);
-        return ($metaData !== false) ? $metaData : null;
     }
 }

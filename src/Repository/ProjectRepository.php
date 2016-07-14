@@ -15,20 +15,25 @@ use JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapperInterface;
 class ProjectRepository implements ProjectRepositoryInterface
 {
     const TYPE_PROJECT = 'project';
-    const UNLIMITED = -1;
 
+    private $wordPressPostRepository;
     private $imageRepository;
     private $projectMapper;
 
     /**
      * ProjectRepository constructor.
+     * @param WordPressPostRepositoryInterface $wordPressPostRepository
      * @param ImageRepositoryInterface $imageRepository
      * @param ProjectMapperInterface $projectMapper
      */
-    public function __construct(ImageRepositoryInterface $imageRepository, ProjectMapperInterface $projectMapper)
-    {
+    public function __construct(
+        WordPressPostRepositoryInterface $wordPressPostRepository,
+        ImageRepositoryInterface $imageRepository,
+        ProjectMapperInterface $projectMapper
+    ) {
+        $this->wordPressPostRepository = $wordPressPostRepository;
         $this->imageRepository = $imageRepository;
-        $this->projectMapper   = $projectMapper;
+        $this->projectMapper = $projectMapper;
     }
 
     /**
@@ -38,14 +43,15 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     public function findAll($addImages = true)
     {
-        $projectPosts = get_posts([
-            'post_type' => self::TYPE_PROJECT,
-            'posts_per_page' => self::UNLIMITED
-        ]);
-        $projects = $this->projectMapper->mapProjects($projectPosts);
+        $projects = [];
 
-        if ($addImages === true) {
-            $this->addImagesToProjects($projects);
+        $projectPosts = $this->wordPressPostRepository->findAll(self::TYPE_PROJECT);
+        if ($projectPosts !== null && !empty($projectPosts)) {
+            $projects = $this->projectMapper->mapProjects($projectPosts);
+
+            if ($addImages === true) {
+                $this->addImagesToProjects($projects);
+            }
         }
 
         return $projects;
@@ -68,10 +74,14 @@ class ProjectRepository implements ProjectRepositoryInterface
      */
     private function addImagesToProject(Project $project)
     {
-        $featuredImage = $this->imageRepository->findFeaturedImage($project);
-        $images = $this->imageRepository->findImages($project);
+        $featuredImage = $this->imageRepository->findFeaturedImage($project->getId());
+        $images = $this->imageRepository->findImages($project->getId());
 
-        $project->setFeaturedImage($featuredImage);
-        $project->setImages($images);
+        if ($featuredImage !== null) {
+            $project->setFeaturedImage($featuredImage);
+        }
+        if ($images !== null) {
+            $project->setImages($images);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
 use JurgenRomeijn\ProjectsRest\Model\Rest\ImageSizeVariant;
+use JurgenRomeijn\ProjectsRest\Util\ArrayHelper;
 
 /**
  * All functionality to map an array of metadata to the ImageSizeVariant entity.
@@ -29,9 +30,11 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
     {
         $imageSizeVariants = [];
 
-        $variants = $metaData[self::META_SIZES];
+        $variants = ArrayHelper::findArray(self::META_SIZES, $metaData);
         foreach ($variants as $variantName => $variantMetaData) {
-            $imageSizeVariants[$variantName] = $this->mapImageSizeVariant($image, $variantMetaData);
+            if (is_string($variantName) and !empty($variantMetaData)) {
+                $imageSizeVariants[$variantName] = $this->mapImageSizeVariant($image, $variantMetaData);
+            }
         }
 
         return $imageSizeVariants;
@@ -47,9 +50,11 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
     {
         $imageSizeVariant = new ImageSizeVariant();
 
-        $imageSizeVariant->setUrl($this->getFullImageVariantUrl($image, $variantMetaData[self::META_FILE]));
-        $imageSizeVariant->setWidth($variantMetaData[self::META_WIDTH]);
-        $imageSizeVariant->setHeight($variantMetaData[self::META_HEIGHT]);
+        $imageSizeVariant->setUrl(
+            $this->getFullImageVariantUrl($image, ArrayHelper::findValue(self::META_FILE, $variantMetaData))
+        );
+        $imageSizeVariant->setWidth(ArrayHelper::findValue(self::META_WIDTH, $variantMetaData));
+        $imageSizeVariant->setHeight(ArrayHelper::findValue(self::META_HEIGHT, $variantMetaData));
 
         return $imageSizeVariant;
     }
@@ -62,8 +67,12 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
      */
     private function getFullImageVariantUrl(Image $image, $fileName)
     {
-        $imageUrl = $image->getUrl();
-        $oldFileName = basename($imageUrl);
-        return str_replace($oldFileName, $fileName, $imageUrl);
+        $url = null;
+        if ($fileName !== null && !empty($fileName)) {
+            $imageUrl = $image->getUrl();
+            $oldFileName = basename($imageUrl);
+            $url = str_replace($oldFileName, $fileName, $imageUrl);
+        }
+        return $url;
     }
 }
