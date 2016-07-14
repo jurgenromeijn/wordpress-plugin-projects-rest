@@ -25,7 +25,7 @@ class ImageMapperTest extends TestCase
         $this->imagePost = new WordPressPost((object)[
             'ID' => 1,
             'guid' => 'http://test.com/1.jpg',
-            'post_title' => 'title1',
+            'post_excerpt' => 'excerpt1',
         ]);
         $this->imageSizeVariants = [
             'small' => new ImageSizeVariant('http://test.com/small/1.jpg', 100, 200),
