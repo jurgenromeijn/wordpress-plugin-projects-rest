@@ -5,7 +5,6 @@
 
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
-use JurgenRomeijn\Projects\Util\SingletonTrait;
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use WP_Post as WordPressPost;
 
@@ -15,16 +14,6 @@ use WP_Post as WordPressPost;
  */
 class ProjectMapper implements ProjectMapperInterface
 {
-    use SingletonTrait;
-
-    /**
-     * ProjectMapper constructor.
-     */
-    private function __construct()
-    {
-        // Do nothing
-    }
-
     /**
      * Map an array of WordPressPost objects to Project objects.
      * @param array $posts
@@ -35,7 +24,9 @@ class ProjectMapper implements ProjectMapperInterface
         $projects = [];
 
         foreach ($posts as $post) {
-            $projects[] = $this->mapProject($post);
+            if ($post !== null) {
+                $projects[] = $this->mapProject($post);
+            }
         }
 
         return $projects;

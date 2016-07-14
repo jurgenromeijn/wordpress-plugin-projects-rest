@@ -6,7 +6,6 @@
 namespace JurgenRomeijn\ProjectsRest;
 
 use JurgenRomeijn\ProjectsRest\Controller\ProjectController;
-use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
 
 /**
  * Sets up the ProjectRestPlugin
@@ -14,19 +13,18 @@ use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
  */
 class ProjectRestPlugin
 {
-    use SingletonTrait;
-
     const API_VERSION   = 'v1';
     const API_BASE_PATH = 'projects';
 
     private $projectController;
 
     /**
-     * Load components
+     * ProjectRestPlugin constructor.
+     * @param ProjectController $projectController
      */
-    private function __construct()
+    public function __construct(ProjectController $projectController)
     {
-        $this->projectController = ProjectController::getInstance();
+        $this->projectController = $projectController;
     }
 
     /**

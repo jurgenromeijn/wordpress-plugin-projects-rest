@@ -6,7 +6,7 @@
 namespace JurgenRomeijn\ProjectsRest\Repository\Mapper;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Image;
-use JurgenRomeijn\ProjectsRest\Util\SingletonTrait;
+use JurgenRomeijn\ProjectsRest\Util\ArrayHelper;
 use WP_Post as WordPressPost;
 
 /**
@@ -15,8 +15,6 @@ use WP_Post as WordPressPost;
  */
 class ImageMapper implements ImageMapperInterface
 {
-    use SingletonTrait;
-
     const META_WIDTH  = 'width';
     const META_HEIGHT = 'height';
 
@@ -24,10 +22,11 @@ class ImageMapper implements ImageMapperInterface
 
     /**
      * ImageMapper constructor.
+     * @param ImageSizeVariantMapperInterface $imageSizeVariantMapper
      */
-    private function __construct()
+    public function __construct(ImageSizeVariantMapperInterface $imageSizeVariantMapper)
     {
-        $this->imageSizeVariantMapper = ImageSizeVariantMapper::getInstance();
+        $this->imageSizeVariantMapper = $imageSizeVariantMapper;
     }
 
     /**
@@ -43,8 +42,8 @@ class ImageMapper implements ImageMapperInterface
         $image->setUrl($postImage->guid);
         $image->setAltText($postImage->post_excerpt);
         $image->setCaption($postImage->post_excerpt);
-        $image->setWidth($metaData[self::META_WIDTH]);
-        $image->setHeight($metaData[self::META_HEIGHT]);
+        $image->setWidth(ArrayHelper::findValue(self::META_WIDTH, $metaData));
+        $image->setHeight(ArrayHelper::findValue(self::META_HEIGHT, $metaData));
         $image->setSizeVariants($this->imageSizeVariantMapper->mapImageSizeVariants($image, $metaData));
 
         return $image;

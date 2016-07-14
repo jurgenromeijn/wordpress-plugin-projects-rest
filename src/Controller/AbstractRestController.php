@@ -16,8 +16,6 @@ use WP_REST_Controller as WordPressRestController;
  */
 abstract class AbstractRestController extends WordPressRestController
 {
-    use SingletonTrait;
-
     const REGISTER_REST_ROUTE_METHODS  = 'methods';
     const REGISTER_REST_ROUTE_CALLBACK = 'callback';
 

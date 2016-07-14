@@ -1,0 +1,32 @@
+services:
+  project_rest_plugin:
+    class: JurgenRomeijn\ProjectsRest\ProjectRestPlugin
+    arguments: [@project_controller]
+
+  project_controller:
+    class: JurgenRomeijn\ProjectsRest\Controller\ProjectController
+    arguments: [@project_repository]
+
+  project_repository:
+    class: JurgenRomeijn\ProjectsRest\Repository\ProjectRepository
+    arguments: [@wordpress_post_repository, @image_repository, @project_mapper]
+
+  image_repository:
+    class: JurgenRomeijn\ProjectsRest\Repository\ImageRepository
+    arguments: [@wordpress_post_repository, @wordpress_metadata_repository, @image_mapper]
+
+  wordpress_post_repository:
+    class: JurgenRomeijn\ProjectsRest\Repository\WordPressPostRepository
+
+  wordpress_metadata_repository:
+    class: JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepository
+
+  project_mapper:
+    class: JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapper
+
+  image_mapper:
+    class: JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageMapper
+    arguments: [@image_size_variant_mapper]
+
+  image_size_variant_mapper:
+    class: JurgenRomeijn\ProjectsRest\Repository\Mapper\ImageSizeVariantMapper
