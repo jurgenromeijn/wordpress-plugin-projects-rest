@@ -183,7 +183,7 @@ class ProjectRepositoryTest extends TestCase
 
         // setup
         $projectRepository = new ProjectRepository(
-            $this->imageRepositoryMock,
+            $this->postRepositoryMock,
             $imageRepositoryMock,
             new ProjectMapper()
         );
@@ -208,7 +208,7 @@ class ProjectRepositoryTest extends TestCase
 
         // setup
         $projectRepository = new ProjectRepository(
-            $this->imageRepositoryMock,
+            $this->postRepositoryMock,
             $imageRepositoryMock,
             new ProjectMapper()
         );
