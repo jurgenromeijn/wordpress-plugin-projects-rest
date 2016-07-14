@@ -48,19 +48,4 @@ class ImageMapper implements ImageMapperInterface
 
         return $image;
     }
-
-    /**
-     * Safely get a value from the metadata or return null
-     * @param $key
-     * @param $metaData
-     * @return
-     */
-    private function getValueFromMetaData($key, $metaData)
-    {
-        $value = null;
-        if (array_key_exists($key, $metaData)) {
-            $value = $metaData[$key];
-        }
-        return $value;
-    }
 }
