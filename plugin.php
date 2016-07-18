@@ -10,6 +10,8 @@
  *
  * @author Jurgen Romeijn <jurgen.romeijn@gmail.com>
  */
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
