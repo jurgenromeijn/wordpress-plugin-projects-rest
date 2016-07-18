@@ -14,4 +14,6 @@ This is a small wordpress plugin that creates the rest interface for the project
 - run `phpunit`
 
 ## Usage
-Navigate to `[base-url]/wp-json/projects/v1/project` to view all projects.
+- Include this plugin into your WordPress through composer.
+- Activate the plugin.
+- Navigate to `[base-url]/wp-json/projects/v1/project` to view all projects.
