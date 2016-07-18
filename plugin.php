@@ -4,12 +4,14 @@
  * Description: A WordPress plugin that creates the rest interface for the project post type.
  * Author: Jurgen Romeijn <jurgen.romeijn@gmail.com>
  * Author URI: http://www.jurgenromeijn.com
- * Version: 1.1.1
+ * Version: 1.1.2
  * Plugin URI: https://github.com/jurgenromeijn/wordpress-plugin-projects-rest
  * License: GPL3
  *
  * @author Jurgen Romeijn <jurgen.romeijn@gmail.com>
  */
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
