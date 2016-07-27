@@ -79,6 +79,12 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
 
     private function getNormalizedVariantName($variantName)
     {
-        return str_replace('-', '_', $variantName);
+        $variantName = str_replace('-', ' ', $variantName);
+        $variantName = str_replace('_', ' ', $variantName);
+        $variantName = ucwords($variantName);
+        $variantName = str_replace(' ', '', $variantName);
+        $variantName = lcfirst($variantName);
+        
+        return $variantName;
     }
 }
