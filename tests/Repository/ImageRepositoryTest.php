@@ -86,7 +86,7 @@ class ImageRepositoryTest extends TestCase
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
                 ->getMock();
-        $metaDataRepositoryMock->method('find')->willReturn($metaData);
+        $metaDataRepositoryMock->method('findAttachmentMetaData')->willReturn($metaData);
 
         // setup
         $imageRepository = new ImageRepository(
@@ -120,7 +120,7 @@ class ImageRepositoryTest extends TestCase
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
                 ->getMock();
-        $metaDataRepositoryMock->method('find')->willReturn([]);
+        $metaDataRepositoryMock->method('findAttachmentMetaData')->willReturn([]);
 
         // setup
         $imageRepository = new ImageRepository(
@@ -145,7 +145,7 @@ class ImageRepositoryTest extends TestCase
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
                 ->getMock();
-        $metaDataRepositoryMock->method('find')->willReturn(null);
+        $metaDataRepositoryMock->method('findAttachmentMetaData')->willReturn(null);
 
         // setup
         $imageRepository = new ImageRepository(
@@ -174,7 +174,7 @@ class ImageRepositoryTest extends TestCase
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
                 ->getMock();
-        $metaDataRepositoryMock->method('find')->willReturn($metaData);
+        $metaDataRepositoryMock->method('findAttachmentMetaData')->willReturn($metaData);
 
         // setup
         $imageRepository = new ImageRepository(
@@ -206,7 +206,7 @@ class ImageRepositoryTest extends TestCase
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
                 ->getMock();
-        $metaDataRepositoryMock->method('find')->willReturn([]);
+        $metaDataRepositoryMock->method('findAttachmentMetaData')->willReturn([]);
 
         // setup
         $imageRepository = new ImageRepository(
@@ -230,7 +230,7 @@ class ImageRepositoryTest extends TestCase
         $metaDataRepositoryMock =
             $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
                 ->getMock();
-        $metaDataRepositoryMock->method('find')->willReturn(null);
+        $metaDataRepositoryMock->method('findAttachmentMetaData')->willReturn(null);
 
         // setup
         $imageRepository = new ImageRepository(
