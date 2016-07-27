@@ -17,7 +17,8 @@ interface ProjectMapperInterface
     /**
      * Map a WordPressPost object to a Project.
      * @param WordPressPost $post
+     * @param array $metaData
      * @return Project
      */
-    public function mapProject(WordPressPost $post);
+    public function mapProject(WordPressPost $post, array $metaData);
 }
