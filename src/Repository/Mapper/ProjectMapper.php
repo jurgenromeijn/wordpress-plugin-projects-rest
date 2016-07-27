@@ -15,24 +15,6 @@ use WP_Post as WordPressPost;
 class ProjectMapper implements ProjectMapperInterface
 {
     /**
-     * Map an array of WordPressPost objects to Project objects.
-     * @param array $posts
-     * @return array
-     */
-    public function mapProjects(array $posts)
-    {
-        $projects = [];
-
-        foreach ($posts as $post) {
-            if ($post !== null) {
-                $projects[] = $this->mapProject($post);
-            }
-        }
-
-        return $projects;
-    }
-
-    /**
      * Map a WordPressPost object to a Project.
      * @param WordPressPost $post
      * @return Project

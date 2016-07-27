@@ -62,18 +62,7 @@ class ProjectRepository implements ProjectRepositoryInterface
 
         return $projects;
     }
-
-    /**
-     * Fetch the images for the specified projects and add them to the entity.
-     * @param array $projects
-     */
-    private function addImagesToProjects(array $projects)
-    {
-        foreach ($projects as $project) {
-            $this->addImagesToProject($project);
-        }
-    }
-
+    
     /**
      * Fetch the images for the specified project and add them to the entity.
      * @param Project $project
