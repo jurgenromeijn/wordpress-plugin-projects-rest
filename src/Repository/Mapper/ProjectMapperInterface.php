@@ -15,16 +15,10 @@ use WP_Post as WordPressPost;
 interface ProjectMapperInterface
 {
     /**
-     * Map an array of WordPressPost objects to Project objects.
-     * @param array $posts
-     * @return array
-     */
-    public function mapProjects(array $posts);
-
-    /**
      * Map a WordPressPost object to a Project.
      * @param WordPressPost $post
+     * @param array $metaData
      * @return Project
      */
-    public function mapProject(WordPressPost $post);
+    public function mapProject(WordPressPost $post, array $metaData);
 }

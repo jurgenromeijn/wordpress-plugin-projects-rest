@@ -9,7 +9,7 @@ services:
 
   project_repository:
     class: JurgenRomeijn\ProjectsRest\Repository\ProjectRepository
-    arguments: [@wordpress_post_repository, @image_repository, @project_mapper]
+    arguments: [@wordpress_post_repository, @wordpress_metadata_repository, @image_repository, @project_mapper]
 
   image_repository:
     class: JurgenRomeijn\ProjectsRest\Repository\ImageRepository
