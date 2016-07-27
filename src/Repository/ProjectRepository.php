@@ -17,21 +17,25 @@ class ProjectRepository implements ProjectRepositoryInterface
     const TYPE_PROJECT = 'project';
 
     private $wordPressPostRepository;
+    private $wordPressMetaDataRepository;
     private $imageRepository;
     private $projectMapper;
 
     /**
      * ProjectRepository constructor.
      * @param WordPressPostRepositoryInterface $wordPressPostRepository
+     * @param WordPressMetaDataRepositoryInterface $wordPressMetaDataRepository
      * @param ImageRepositoryInterface $imageRepository
      * @param ProjectMapperInterface $projectMapper
      */
     public function __construct(
         WordPressPostRepositoryInterface $wordPressPostRepository,
+        WordPressMetaDataRepositoryInterface $wordPressMetaDataRepository,
         ImageRepositoryInterface $imageRepository,
         ProjectMapperInterface $projectMapper
     ) {
         $this->wordPressPostRepository = $wordPressPostRepository;
+        $this->wordPressMetaDataRepository = $wordPressMetaDataRepository;
         $this->imageRepository = $imageRepository;
         $this->projectMapper = $projectMapper;
     }
