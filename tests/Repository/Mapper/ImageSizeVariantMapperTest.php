@@ -86,6 +86,13 @@ class ImageSizeVariantMapperTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertSameSize($result, $this->metaData['sizes']);
         $this->assertEquals($result['medium']->getHeight(), $this->metaData['sizes']['medium']['height']);
+        $this->assertArrayHasKey('thumbnail', $result);
+        $this->assertArrayHasKey('medium', $result);
+        $this->assertArrayHasKey('mediumLarge', $result);
+        $this->assertArrayHasKey('large', $result);
+        $this->assertArrayHasKey('postThumbnail', $result);
+        $this->assertArrayNotHasKey('medium_large', $result);
+        $this->assertArrayNotHasKey('post-thumbnail', $result);
     }
 
     public function testMapImageSizeVariantsInvalid()
