@@ -53,6 +53,7 @@ class ProjectRepository implements ProjectRepositoryInterface
         if ($projectPosts !== null && !empty($projectPosts)) {
             foreach ($projectPosts as $projectPost) {
                 $metaData = $this->wordPressMetaDataRepository->findPostMetaData($projectPost->ID);
+                $metaData = ($metaData === null) ? [] : $metaData;
                 $project = $this->projectMapper->mapProject($projectPost, $metaData);
                 if ($addImages === true) {
                     $this->addImagesToProject($project);
