@@ -26,9 +26,9 @@ class Project
      * @param int $id
      * @param string $slug
      * @param string $title
-     * @param null $intro
+     * @param string $intro
      * @param string $content
-     * @param null $info
+     * @param string $info
      * @param string $excerpt
      * @param Image $featuredImage
      * @param array $images
@@ -104,7 +104,7 @@ class Project
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getIntro()
     {
@@ -112,7 +112,7 @@ class Project
     }
 
     /**
-     * @param null $intro
+     * @param string $intro
      */
     public function setIntro($intro)
     {
@@ -136,7 +136,7 @@ class Project
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getInfo()
     {
@@ -144,7 +144,7 @@ class Project
     }
 
     /**
-     * @param null $info
+     * @param string $info
      */
     public function setInfo($info)
     {
