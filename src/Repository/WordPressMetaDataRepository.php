@@ -16,7 +16,7 @@ class WordPressMetaDataRepository implements WordPressMetaDataRepositoryInterfac
      * @param int $attachmentId
      * @return array
      */
-    public function find($attachmentId)
+    public function findAttachmentMetaData($attachmentId)
     {
         $metaData = wp_get_attachment_metadata($attachmentId);
         return ($metaData !== false) ? $metaData : [];

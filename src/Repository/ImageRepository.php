@@ -49,7 +49,7 @@ class ImageRepository implements ImageRepositoryInterface
         $imagePosts = $this->wordPressPostRepository->findAllAttachedPosts($projectId, self::TYPE_IMAGE);
         if ($imagePosts !== null) {
             foreach ($imagePosts as $imagePost) {
-                $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
+                $metaData = $this->wordPressMetaDataRepository->findAttachmentMetaData($imagePost->ID);
                 $images[] = $this->imageMapper->mapImage($imagePost, $metaData);
             }
         }
@@ -68,7 +68,7 @@ class ImageRepository implements ImageRepositoryInterface
 
         $imagePost = $this->wordPressPostRepository->findFeaturedImagePost($projectId);
         if ($imagePost !== null) {
-            $metaData = $this->wordPressMetaDataRepository->find($imagePost->ID);
+            $metaData = $this->wordPressMetaDataRepository->findAttachmentMetaData($imagePost->ID);
             $image = $this->imageMapper->mapImage($imagePost, $metaData);
         }
 
