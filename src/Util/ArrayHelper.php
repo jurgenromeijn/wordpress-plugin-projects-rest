@@ -20,9 +20,11 @@ abstract class ArrayHelper
     public static function findArray($key, array $array)
     {
         $returnArray = [];
+
         if (array_key_exists($key, $array)) {
             $returnArray = (is_array($array[$key])) ? $array[$key] : [$array[$key]];
         }
+
         return $returnArray;
     }
 
@@ -35,9 +37,14 @@ abstract class ArrayHelper
     public static function findValue($key, array $array)
     {
         $value = null;
+
         if (array_key_exists($key, $array)) {
             $value = $array[$key];
         }
+        if (is_array($value)) {
+            $value = implode(',', $value);
+        }
+
         return $value;
     }
 }
