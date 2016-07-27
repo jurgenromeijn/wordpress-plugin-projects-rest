@@ -13,11 +13,11 @@ class ProjectMapperTest extends TestCase
     /**
      * @var WordPressPost
      */
-    private $projectPost1;
+    private $projectPost;
     /**
      * @var WordPressPost
      */
-    private $projectPost2;
+    private $projectMetaData;
     /**
      * @var ProjectMapper
      */
@@ -25,86 +25,65 @@ class ProjectMapperTest extends TestCase
 
     public function setUp()
     {
-        $this->projectPost1 = new WordPressPost((object)[
+        $this->projectPost = new WordPressPost((object)[
             'ID' => 1,
             'post_name' => 'slug1',
             'post_title' => 'title1',
             'post_content' => 'content1',
             'post_excerpt' => 'excerpt1'
         ]);
-        $this->projectPost2= new WordPressPost((object)[
-            'ID' => 2,
-            'post_name' => 'slug2',
-            'post_title' => 'title2',
-            'post_content' => 'content2',
-            'post_excerpt' => 'excerpt2'
-        ]);
+        $this->projectMetaData = [
+            '_edit_last' => [1],
+            '_edit_lock' => ['1469604608:1'],
+            '_thumbnail_id' => [291],
+            'intro' => ['intro'],
+            '_intro' => ['field_5798513c021a2'],
+            'info' => ['info'],
+            '_info' => ['field_5798520371f77']
+        ];
         $this->projectMapper = new ProjectMapper();
-    }
-
-    public function testMapProjects()
-    {
-        // data
-        $projectPosts = [
-            $this->projectPost1,
-            $this->projectPost2
-        ];
-
-        // setup
-        $mappedProjects = $this->projectMapper->mapProjects($projectPosts);
-
-        // tests
-        $this->assertNotNull($mappedProjects);
-        $this->assertNotEmpty($mappedProjects);
-        $this->assertSameSize($mappedProjects, $projectPosts);
-        $this->assertEquals($mappedProjects[0]->getSlug(), $projectPosts[0]->post_name);
-        $this->assertEquals($mappedProjects[1]->getSlug(), $projectPosts[1]->post_name);
-    }
-
-    public function testMapProjectsSomeNull()
-    {
-        // data
-        $projectPosts = [
-            $this->projectPost1,
-            null
-        ];
-
-        // setup
-        $mappedProjects = $this->projectMapper->mapProjects($projectPosts);
-
-        // tests
-        $this->assertNotNull($mappedProjects);
-        $this->assertNotEmpty($mappedProjects);
-        $this->assertSame(count($mappedProjects), 1);
-        $this->assertEquals($mappedProjects[0]->getSlug(), $projectPosts[0]->post_name);
-    }
-
-    public function testMapProjectsEmpty()
-    {
-        // data
-        $projectPosts = [];
-
-        // setup
-        $mappedProjects = $this->projectMapper->mapProjects($projectPosts);
-
-        // tests
-        $this->assertNotNull($mappedProjects);
-        $this->assertEmpty($mappedProjects);
     }
 
     public function testMapProject()
     {
         // data
-        $projectPost = $this->projectPost1;
+        $projectPost = $this->projectPost;
+        $projectMetaData = $this->projectMetaData;
 
-        $mappedProject = $this->projectMapper->mapProject($projectPost);
+        // setup
+        $mappedProject = $this->projectMapper->mapProject($projectPost, $projectMetaData);
 
         // tests
         $this->assertNotNull($mappedProject);
         $this->assertEquals($mappedProject->getId(), $projectPost->ID);
         $this->assertEquals($mappedProject->getSlug(), $projectPost->post_name);
         $this->assertEquals($mappedProject->getTitle(), $projectPost->post_title);
+        $this->assertEquals($mappedProject->getIntro(), $this->projectMetaData['intro'][0]);
         $this->assertEquals($mappedProject->getContent(), $projectPost->post_content);
+        $this->assertEquals($mappedProject->getInfo(), $this->projectMetaData['info'][0]);
+        $this->assertEquals($mappedProject->getExcerpt(), $projectPost->post_excerpt);
+        $this->assertNull($mappedProject->getFeaturedImage());
+        $this->assertNotNull($mappedProject->getImages());
+        $this->assertEmpty($mappedProject->getImages());
+    }
+
+    public function testMapProjectMetaDataEmpty()
+    {
+        // data
+        $projectPost = $this->projectPost;
+        $projectMetaData = [];
+
+        // setup
+        $mappedProject = $this->projectMapper->mapProject($projectPost, $projectMetaData);
+
+        // tests
+        $this->assertNotNull($mappedProject);
+        $this->assertEquals($mappedProject->getId(), $projectPost->ID);
+        $this->assertEquals($mappedProject->getSlug(), $projectPost->post_name);
+        $this->assertEquals($mappedProject->getTitle(), $projectPost->post_title);
+        $this->assertEquals($mappedProject->getIntro(), null);
+        $this->assertEquals($mappedProject->getContent(), $projectPost->post_content);
+        $this->assertEquals($mappedProject->getInfo(), null);
         $this->assertEquals($mappedProject->getExcerpt(), $projectPost->post_excerpt);
         $this->assertNull($mappedProject->getFeaturedImage());
         $this->assertNotNull($mappedProject->getImages());
