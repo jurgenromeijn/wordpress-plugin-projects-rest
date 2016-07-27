@@ -7,6 +7,7 @@ namespace JurgenRomeijn\ProjectsRest\Repository;
 
 use JurgenRomeijn\ProjectsRest\Model\Rest\Project;
 use JurgenRomeijn\ProjectsRest\Repository\Mapper\ProjectMapperInterface;
+use WP_Post as WordPressPost;
 
 /**
  * A repository to fetch projects from the database.
@@ -52,17 +53,28 @@ class ProjectRepository implements ProjectRepositoryInterface
         $projectPosts = $this->wordPressPostRepository->findAll(self::TYPE_PROJECT);
         if ($projectPosts !== null && !empty($projectPosts)) {
             foreach ($projectPosts as $projectPost) {
-                $metaData = $this->wordPressMetaDataRepository->findPostMetaData($projectPost->ID);
-                $metaData = ($metaData === null) ? [] : $metaData;
-                $project = $this->projectMapper->mapProject($projectPost, $metaData);
-                if ($addImages === true) {
-                    $this->addImagesToProject($project);
-                }
-                $projects[] = $project;
+                $projects[] = $this->createProjectFromWordPressPost($projectPost, $addImages);
             }
         }
 
         return $projects;
+    }
+
+    /**
+     * Create a Project based on a WordPressPost
+     * @param WordPressPost $projectPost
+     * @param bool $addImages
+     * @return Project
+     */
+    private function createProjectFromWordPressPost(WordPressPost $projectPost, $addImages)
+    {
+        $metaData = $this->wordPressMetaDataRepository->findPostMetaData($projectPost->ID);
+        $metaData = ($metaData === null) ? [] : $metaData;
+        $project = $this->projectMapper->mapProject($projectPost, $metaData);
+        if ($addImages === true) {
+            $this->addImagesToProject($project);
+        }
+        return $project;
     }
     
     /**
