@@ -77,6 +77,11 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
         return $url;
     }
 
+    /**
+     * Normalize the variant name to lowerCamelCase.
+     * @param string $variantName
+     * @return string
+     */
     private function getNormalizedVariantName($variantName)
     {
         $variantName = str_replace('-', ' ', $variantName);
