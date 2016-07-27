@@ -38,6 +38,9 @@ abstract class ArrayHelper
         if (array_key_exists($key, $array)) {
             $value = $array[$key];
         }
+        if (is_array($value)) {
+            $value = implode(',', $value);
+        }
         return $value;
     }
 }
