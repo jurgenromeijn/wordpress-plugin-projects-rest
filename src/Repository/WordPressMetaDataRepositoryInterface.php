@@ -16,5 +16,12 @@ interface WordPressMetaDataRepositoryInterface
      * @param int $attachmentId
      * @return array
      */
-    public function find($attachmentId);
+    public function findAttachmentMetaData($attachmentId);
+
+    /**
+     * Find an array of metadata for the specified post.
+     * @param int $postId
+     * @return array
+     */
+    public function findPostMetaData($postId);
 }
