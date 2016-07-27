@@ -14,7 +14,9 @@ class Project
     private $id;
     public $slug;
     public $title;
+    public $intro;
     public $content;
+    public $info;
     public $excerpt;
     public $featuredImage;
     public $images;
@@ -24,7 +26,9 @@ class Project
      * @param int $id
      * @param string $slug
      * @param string $title
+     * @param null $intro
      * @param string $content
+     * @param null $info
      * @param string $excerpt
      * @param Image $featuredImage
      * @param array $images
@@ -33,7 +37,9 @@ class Project
         $id = null,
         $slug = null,
         $title = null,
+        $intro = null,
         $content = null,
+        $info = null,
         $excerpt = null,
         Image $featuredImage = null,
         array $images = []
@@ -41,7 +47,9 @@ class Project
         $this->id = $id;
         $this->slug = $slug;
         $this->title = $title;
+        $this->intro = $intro;
         $this->content = $content;
+        $this->info = $info;
         $this->excerpt = $excerpt;
         $this->featuredImage = $featuredImage;
         $this->images = $images;
@@ -96,6 +104,22 @@ class Project
     }
 
     /**
+     * @return null
+     */
+    public function getIntro()
+    {
+        return $this->intro;
+    }
+
+    /**
+     * @param null $intro
+     */
+    public function setIntro($intro)
+    {
+        $this->intro = $intro;
+    }
+
+    /**
      * @return string
      */
     public function getContent()
@@ -109,6 +133,22 @@ class Project
     public function setContent($content)
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return null
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param null $info
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
     }
 
     /**
