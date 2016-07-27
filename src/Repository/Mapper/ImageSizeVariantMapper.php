@@ -33,7 +33,8 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
         $variants = ArrayHelper::findArray(self::META_SIZES, $metaData);
         foreach ($variants as $variantName => $variantMetaData) {
             if (is_string($variantName) and !empty($variantMetaData)) {
-                $imageSizeVariants[$variantName] = $this->mapImageSizeVariant($image, $variantMetaData);
+                $normalizedVariantName = $this->getNormalizedVariantName($variantName);
+                $imageSizeVariants[$normalizedVariantName] = $this->mapImageSizeVariant($image, $variantMetaData);
             }
         }
 
@@ -74,5 +75,10 @@ class ImageSizeVariantMapper implements ImageSizeVariantMapperInterface
             $url = str_replace($oldFileName, $fileName, $imageUrl);
         }
         return $url;
+    }
+
+    private function getNormalizedVariantName($variantName)
+    {
+        return str_replace('-', '_', $variantName);
     }
 }
