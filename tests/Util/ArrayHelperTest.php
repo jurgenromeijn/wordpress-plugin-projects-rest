@@ -75,6 +75,36 @@ class ArrayHelperTest extends TestCase
         $this->assertEquals($result, $array['test']);
     }
 
+    public function testFindValueArray()
+    {
+        // data
+        $array = [
+            'test' => ['found']
+        ];
+
+        // setup
+        $result = ArrayHelper::findValue('test', $array);
+
+        // tests
+        $this->assertNotNull($result);
+        $this->assertEquals($result, $array['test'][0]);
+    }
+
+    public function testFindValueArrayMultipleEntries()
+    {
+        // data
+        $array = [
+            'test' => ['found', 'found2']
+        ];
+
+        // setup
+        $result = ArrayHelper::findValue('test', $array);
+
+        // tests
+        $this->assertNotNull($result);
+        $this->assertEquals($result, implode(',', $array['test']));
+    }
+
     public function testFindValueNotFound()
     {
         // data
