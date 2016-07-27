@@ -258,4 +258,62 @@ class ProjectRepositoryTest extends TestCase
         $this->assertNotNull($results[0]->getImages());
         $this->assertEmpty($results[0]->getImages());
     }
+
+    public function testFindAllMetaDataEmpty()
+    {
+        // data
+        $projectPosts = $this->projectPosts;
+
+        // mocks
+        $metaDataRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
+                ->getMock();
+        $metaDataRepositoryMock->method('findPostMetaData')->willReturn([]);
+
+        // setup
+        $projectRepository = new ProjectRepository(
+            $this->postRepositoryMock,
+            $metaDataRepositoryMock,
+            $this->imageRepositoryMock,
+            new ProjectMapper()
+        );
+        $results = $projectRepository->findAll();
+
+        // tests
+        $this->assertNotNull($results);
+        $this->assertNotEmpty($results);
+        $this->assertSameSize($results, $projectPosts);
+        $this->assertEquals($results[0]->getId(), $projectPosts[0]->ID);
+        $this->assertNull($results[0]->getIntro());
+        $this->assertNull($results[0]->getInfo());
+    }
+
+    public function testFindAllMetaDataNull()
+    {
+        // data
+        $projectPosts = $this->projectPosts;
+
+        // mocks
+        $metaDataRepositoryMock =
+            $this->getMockBuilder('JurgenRomeijn\ProjectsRest\Repository\WordPressMetaDataRepositoryInterface')
+                ->getMock();
+        $metaDataRepositoryMock->method('findPostMetaData')->willReturn(null);
+
+        // setup
+        $projectRepository = new ProjectRepository(
+            $this->postRepositoryMock,
+            $metaDataRepositoryMock,
+            $this->imageRepositoryMock,
+            new ProjectMapper()
+        );
+        $results = $projectRepository->findAll();
+
+        // tests
+        $this->assertNotNull($results);
+        $this->assertNotEmpty($results);
+        $this->assertSameSize($results, $projectPosts);
+        $this->assertEquals($results[0]->getId(), $projectPosts[0]->ID);
+        $this->assertNull($results[0]->getIntro());
+        $this->assertNull($results[0]->getInfo());
+    }
 }
