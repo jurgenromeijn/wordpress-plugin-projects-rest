@@ -23,7 +23,7 @@
     "php": ">=5.4",
     "composer/installers": "~1.0",
     "johnpbloch/wordpress": "~4.5",
-    "wpackagist-plugin/rest-api": "~2.0.0.0-beta13",
+    "wpackagist-plugin/rest-api": "~2.0",
     "symfony/dependency-injection": "~2.8",
     "symfony/config": "~2.8",
     "symfony/yaml": "~2.8"
