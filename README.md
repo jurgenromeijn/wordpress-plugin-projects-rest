@@ -1,6 +1,7 @@
 # Wordpress Plugin: Projects
 This is a small wordpress plugin that creates the rest interface for the project post type.
 
+[![GitHub version](https://badge.fury.io/gh/jurgenromeijn%2Fwordpress-plugin-projects-rest.svg)](https://badge.fury.io/gh/jurgenromeijn%2Fwordpress-plugin-projects-rest)
 [![Build Status](https://scrutinizer-ci.com/g/jurgenromeijn/wordpress-plugin-projects-rest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jurgenromeijn/wordpress-plugin-projects-rest/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jurgenromeijn/wordpress-plugin-projects-rest/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jurgenromeijn/wordpress-plugin-projects-rest/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/jurgenromeijn/wordpress-plugin-projects-rest/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jurgenromeijn/wordpress-plugin-projects-rest/?branch=master)
